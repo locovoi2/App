@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647043691573",
+    "project_id": "pumppal-994a9",
+    "storage_bucket": "pumppal-994a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647043691573:android:41068b9b06d09846186d7c",
+        "android_client_info": {
+          "package_name": "edu.ub.pis.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647043691573-j4e7lk7khsg3alu6t1es5pg13796de9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY_7hSU4TSVEk4Ylw-ZCE_U_xpPNnOez0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647043691573-j4e7lk7khsg3alu6t1es5pg13796de9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
