@@ -23,7 +23,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
+
+import java.util.List;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.UserRepository;
@@ -38,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editTextConfirmPassword;
     private CheckBox checkBoxTrainer;
     private Button buttonContinue;
-
     private UserRepository mRepository;
 
     @SuppressLint("MissingInflatedId")
@@ -70,7 +73,7 @@ public class SignUpActivity extends AppCompatActivity {
         };
 
         // Agregar el ClickableSpan a la palabra "Sign In"
-        spannableString.setSpan(clickableSpan, 16, 23, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(clickableSpan, 17, 24, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 // Establecer el texto con el ClickableSpan en el TextView
         textViewSignIn.setText(spannableString);
@@ -78,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         buttonContinue = (Button) findViewById(R.id.buttonContinue);
         buttonContinue.setOnClickListener(view -> {
-            signUp(editTextName.getText().toString(), editTextName.getText().toString(), editTextEmail.getText().toString(), editTextPassword.getText().toString(),
+            signUp(editTextName.getText().toString(), editTextSurname.getText().toString(), editTextEmail.getText().toString(), editTextPassword.getText().toString(),
                     editTextConfirmPassword.getText().toString(), checkBoxTrainer.isChecked());
         });
     }
@@ -100,29 +103,43 @@ public class SignUpActivity extends AppCompatActivity {
                     .create()
                     .show();
         } else {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            mAuth.fetchSignInMethodsForEmail(email)
+                    .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                             if (task.isSuccessful()) {
-                                mRepository.addUser(
-                                        name,
-                                        surname,
-                                        email,
-                                        checkBoxTrainer.isChecked()
-                                );/*
-                                // Anar a la pantalla home de l'usuari autenticat
-                                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
-                                startActivity(intent);*/
-                            } else {
-                                Exception exception = task.getException();
-                                if (exception != null) {
-                                    Log.e(TAG, "Exception: " + exception.getMessage());
+                                SignInMethodQueryResult result = task.getResult();
+                                List<String> signInMethods = result.getSignInMethods();
+
+                                if (signInMethods.contains(EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD)) {
+                                    // El usuario ya está registrado
+                                    Toast.makeText(getApplicationContext(), "Este correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // El usuario no está registrado
+                                    mAuth.createUserWithEmailAndPassword(email, password)
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    if (task.isSuccessful()) {
+                                                        mRepository.addUser(
+                                                                name,
+                                                                surname,
+                                                                email,
+                                                                checkBoxTrainer.isChecked()
+                                                        );
+                                                        Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                        startActivity(intent);
+                                                    } else {
+                                                        Toast.makeText(getApplicationContext(), "Ha ocurrido un error al registrar al usuario", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                 }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Ha ocurrido un error al comprobar si el usuario está registrado", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-
         }
     }
 
