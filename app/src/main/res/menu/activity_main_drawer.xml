@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/reports"
+            android:title="@string/menu_reports" />
+        <item
+            android:id="@+id/nav_daily_routines"
+            android:icon="@drawable/daily_routines"
+            android:title="@string/menu_daily_routines" />
+        <item
+            android:id="@+id/nav_manage_routines"
+            android:icon="@drawable/manage_routines"
+            android:title="@string/menu_manage_routines" />
+        <item
+            android:id="@+id/nav_trainers"
+            android:icon="@drawable/trainers"
+            android:title="@string/menu_trainers" />
+    </group>
+</menu>

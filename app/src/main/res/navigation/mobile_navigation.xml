@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="edu.ub.pis.app.view.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_reports"
+        android:name="edu.ub.pis.app.view.ui.reports.ReportsFragment"
+        android:label="@string/menu_reports"
+        tools:layout="@layout/fragment_reports" />
+
+    <fragment
+        android:id="@+id/nav_daily_routines"
+        android:name="edu.ub.pis.app.view.ui.daily_routines.DailyRoutinesFragment"
+        android:label="@string/menu_daily_routines"
+        tools:layout="@layout/fragment_daily_routines" />
+
+    <fragment
+        android:id="@+id/nav_manage_routines"
+        android:name="edu.ub.pis.app.view.ui.manage_routines.ManageRoutinesFragment"
+        android:label="@string/menu_manage_routines"
+        tools:layout="@layout/fragment_manage_routines" />
+
+    <fragment
+        android:id="@+id/nav_trainers"
+        android:name="edu.ub.pis.app.view.ui.trainers.TrainersFragment"
+        android:label="@string/menu_daily_routines"
+        tools:layout="@layout/fragment_trainers" />
+</navigation>
