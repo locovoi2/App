@@ -13,4 +13,13 @@
     <string name="menu_daily_routines">Daily Routines</string>
     <string name="menu_manage_routines">Manage Routines</string>
     <string name="menu_trainers">Trainers</string>
+
+    <string name="add_new_routine">Add New Routine</string>
+    <string name="routine_name">Routine name</string>
+    <string name="exercise_name">Exercise name</string>
+    <string name="series">Series</string>
+    <string name="reps">Reps</string>
+    <string name="weight">Weight</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="finish">Finish</string>
 </resources>

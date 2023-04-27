@@ -10,7 +10,6 @@ public class ManageRoutinesViewModel extends ViewModel {
 
     public ManageRoutinesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {
