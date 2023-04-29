@@ -1,44 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/light_green"
-    tools:context=".view.ui.daily_routines.DailyRoutinesFragment">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-</LinearLayout>
-<!-- <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_green"
     tools:context=".view.ui.daily_routines.DailyRoutinesFragment">
-
-<androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_green"
-        tools:context=".view.ui.daily_routines.DailyRoutinesFragment">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gymRoutinesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/addRoutineRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-</androidx.viewpager.widget.ViewPager>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintAdd"
@@ -153,6 +120,30 @@
             android:text="@string/finish"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonFinish"
+            app:layout_constraintVertical_bias="0.454">
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/exercises_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout> -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

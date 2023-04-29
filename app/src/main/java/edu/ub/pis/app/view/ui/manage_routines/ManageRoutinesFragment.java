@@ -11,7 +11,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -26,6 +31,66 @@ import edu.ub.pis.app.model.RoutineRepository;
 
 public class ManageRoutinesFragment extends Fragment {
     private FragmentManageRoutinesBinding binding;
+    private ViewPager viewPager;
+    private RecyclerView routinesRecyclerView;
+    private RecyclerView exercisesRecyclerView;
+    private EditText exerciseNameEditText;
+    private Button addExerciseButton;
+    private List<Routine> routineList;
+    private ArrayList<Exercise> exerciseList;
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
+
+
+        viewPager = binding.viewPager;
+
+
+        // Set up the ViewPager
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        //viewPagerAdapter.addFragment(new RoutineFragment(), "All Routines");
+        viewPagerAdapter.addFragment(new AddRoutineFragment(), "Add Routine");
+        viewPager.setAdapter(viewPagerAdapter);
+
+        return binding.getRoot();
+    }
+
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> fragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragmentList.add(fragment);
+            fragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragmentTitleList.get(position);
+        }
+    }
+}
+
+
+/*
+public class ManageRoutinesFragment extends Fragment {
+    private FragmentManageRoutinesBinding binding;
     private final String TAG = "SignInActivity";
     private String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail(); //mail del usuario actual
     private ManageRoutinesViewModel mManageRoutinesViewModel;
@@ -38,6 +103,7 @@ public class ManageRoutinesFragment extends Fragment {
     private Button mButtonFinish;
     private RoutineRepository mRepository;
     private ArrayList<Exercise> exes;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
@@ -56,6 +122,7 @@ public class ManageRoutinesFragment extends Fragment {
         mEditTextWeight = binding.editTextWeight;
         mButtonAdd = binding.buttonAdd;
         mButtonFinish = binding.buttonFinish;
+
 
         mButtonAdd.setOnClickListener(view -> {
             addExercise(mEditTextExerciseName.getText().toString(),
@@ -103,4 +170,4 @@ public class ManageRoutinesFragment extends Fragment {
             mEditTextWeight.setText("");
         }
     }
-}
+}*/
