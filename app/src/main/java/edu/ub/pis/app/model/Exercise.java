@@ -10,6 +10,7 @@ public class Exercise implements Serializable {
     private String series;
     private String reps;
     private String weight;
+    private boolean completed;
 
     //Constructors
     public Exercise() {}
@@ -19,6 +20,15 @@ public class Exercise implements Serializable {
         this.series = series;
         this.reps = reps;
         this.weight = weight;
+        this.completed = false;
+    }
+
+    public Exercise(String name, String series, String reps, String weight, boolean completed) {
+        this.name = name;
+        this.series = series;
+        this.reps = reps;
+        this.weight = weight;
+        this.completed = completed;
     }
 
     //Getters i setters
@@ -53,4 +63,7 @@ public class Exercise implements Serializable {
     public void setWeight(String weight) {
         this.weight = weight;
     }
+
+    public boolean getCompleted() { return completed;}
+    public void setCompleted(boolean completed) { this.completed = completed;}
 }

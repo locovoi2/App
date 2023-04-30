@@ -22,4 +22,9 @@
     <string name="weight">Weight</string>
     <string name="add_exercise">Add exercise</string>
     <string name="finish">Finish</string>
+
+    <string name="daily_routines">Daily Routines</string>
+    <string name="title_activity_daily_routines">DailyRoutinesActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
