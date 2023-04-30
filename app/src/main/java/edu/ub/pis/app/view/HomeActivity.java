@@ -1,8 +1,10 @@
 package edu.ub.pis.app.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +35,18 @@ public class HomeActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        View headerView = navigationView.getHeaderView(0);
+        Intent intent = getIntent();
+        if (intent != null) {
+            String mUserMail = (String) intent.getStringExtra("USER_MAIL");
+            String mUserName = (String) intent.getStringExtra("USER_NAME");
+            TextView userMailTextView = headerView.findViewById(R.id.uMail);
+            TextView userNameTextView = headerView.findViewById(R.id.uName_surname);
+            userMailTextView.setText(mUserMail);
+            userNameTextView.setText(mUserName);
+        }
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
