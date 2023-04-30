@@ -9,7 +9,20 @@
         android:id="@+id/nav_home"
         android:name="edu.ub.pis.app.view.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_trainers"
+            app:destination="@id/nav_trainers" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_daily_routines"
+            app:destination="@id/nav_daily_routines" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_reports"
+            app:destination="@id/nav_reports" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_manage_routines"
+            app:destination="@id/nav_manage_routines" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_reports"

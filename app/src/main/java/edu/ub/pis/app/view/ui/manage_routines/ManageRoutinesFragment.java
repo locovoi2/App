@@ -18,6 +18,12 @@ public class ManageRoutinesFragment extends Fragment {
     private ViewPager pager;
     private ViewPagerAdapter pagerAdapter;
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("current_page", pager.getCurrentItem());
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
 
@@ -25,13 +31,21 @@ public class ManageRoutinesFragment extends Fragment {
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new AddRoutinesPage());
         fragments.add(new SeeRoutinesPage());
 
         pager = binding.viewPager;
-        pagerAdapter = new ViewPagerAdapter(requireActivity().getSupportFragmentManager(), fragments);
+        pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments);
         pager.setAdapter(pagerAdapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
 

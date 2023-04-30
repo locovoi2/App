@@ -10,7 +10,6 @@ public class DailyRoutinesViewModel extends ViewModel {
 
     public DailyRoutinesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

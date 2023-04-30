@@ -14,6 +14,8 @@ import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
 
 
 public class SeeRoutinesPage extends Fragment {
+    private FragmentManageRoutinesBinding binding;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -22,11 +24,19 @@ public class SeeRoutinesPage extends Fragment {
                         container,
                         false);
 
+        binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
+
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

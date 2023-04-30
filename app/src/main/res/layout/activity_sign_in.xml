@@ -9,9 +9,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="84dp"
-        android:layout_weight="0.3"
+        android:layout_width="183dp"
+        android:layout_height="115dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.15"
         android:src="@drawable/logo" />
 
     <TextView
