@@ -4,26 +4,39 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.google.firebase.auth.FirebaseAuth;
-
+import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
-import java.util.List;
-
-import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
-import edu.ub.pis.app.model.Exercise;
-import edu.ub.pis.app.model.Routine;
-import edu.ub.pis.app.model.RoutineRepository;
+import edu.ub.pis.app.view.ui.manage_routines.pages.AddRoutinesPage;
+import edu.ub.pis.app.view.ui.manage_routines.pages.SeeRoutinesPage;
 
+public class ManageRoutinesFragment extends Fragment {
+    private FragmentManageRoutinesBinding binding;
+    private ViewPager pager;
+    private ViewPagerAdapter pagerAdapter;
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
+
+        return binding.getRoot();
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new AddRoutinesPage());
+        fragments.add(new SeeRoutinesPage());
+
+        pager = binding.viewPager;
+        pagerAdapter = new ViewPagerAdapter(requireActivity().getSupportFragmentManager(), fragments);
+        pager.setAdapter(pagerAdapter);
+    }
+}
+
+
+/*
 public class ManageRoutinesFragment extends Fragment {
     private FragmentManageRoutinesBinding binding;
     private final String TAG = "SignInActivity";
@@ -104,3 +117,5 @@ public class ManageRoutinesFragment extends Fragment {
         }
     }
 }
+
+ */

@@ -11,13 +11,17 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="84dp"
+        android:layout_weight="0.3"
         android:src="@drawable/logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="27dp"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="32dp"
+        android:layout_weight="0.01"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:text="Sign In"
@@ -28,12 +32,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email" />
+        android:layout_marginLeft="27dp"
+        android:text="Email"
+        android:textColor="@color/dark_green" />
 
     <EditText
         android:id="@+id/editTextMail"
-        android:layout_width="match_parent"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
         android:maxLines="1" />
@@ -41,12 +49,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password" />
+        android:layout_marginLeft="27dp"
+        android:text="Password"
+        android:textColor="@color/dark_green" />
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
         android:hint="Enter Password"
         android:inputType="textPassword"
         android:maxLines="1" />
@@ -55,12 +67,18 @@
         android:id="@+id/checkBoxTrainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="25dp"
+        android:layout_weight="0.05"
+        android:gravity="center_vertical|start"
         android:text="I am a trainer" />
 
     <Button
         android:id="@+id/buttonContinue"
-        android:layout_width="match_parent"
+        android:layout_width="325dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
         android:backgroundTint="@color/dark_green"
         android:text="Continue"
         android:textColor="@android:color/white" />
@@ -69,8 +87,9 @@
         android:id="@+id/textViewSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.1"
         android:text="Don't have an account? Sign Up"
-        android:textStyle="italic"
-        android:layout_gravity="center_horizontal" />
+        android:textStyle="italic" />
 
 </LinearLayout>
