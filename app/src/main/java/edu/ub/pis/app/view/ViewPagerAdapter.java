@@ -1,4 +1,4 @@
-package edu.ub.pis.app.view.ui.manage_routines;
+package edu.ub.pis.app.view;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -10,19 +10,16 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
+import edu.ub.pis.app.view.ViewPagerAdapter;
 import edu.ub.pis.app.view.ui.manage_routines.pages.AddRoutinesPage;
 import edu.ub.pis.app.view.ui.manage_routines.pages.SeeRoutinesPage;
+import me.relex.circleindicator.CircleIndicator;
 
 public class ManageRoutinesFragment extends Fragment {
     private FragmentManageRoutinesBinding binding;
     private ViewPager pager;
     private ViewPagerAdapter pagerAdapter;
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("current_page", pager.getCurrentItem());
-    }
+    private CircleIndicator indicator;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
@@ -37,9 +34,25 @@ public class ManageRoutinesFragment extends Fragment {
         fragments.add(new AddRoutinesPage());
         fragments.add(new SeeRoutinesPage());
 
-        pager = binding.viewPager;
+        pager = binding.viewPagerManage;
         pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments);
         pager.setAdapter(pagerAdapter);
+
+        indicator = binding.ciManage;
+        indicator.setViewPager(pager);
+
+        /*
+        for (int i = 0; i < indicator.getChildCount(); i++) {
+            final int page = i;
+            indicator.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pager.setCurrentItem(page);
+                }
+            });
+        }
+        //Metodo para hace clickables los indicadores
+         */
     }
 
     @Override
