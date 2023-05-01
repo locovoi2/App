@@ -10,13 +10,16 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
+import edu.ub.pis.app.view.ViewPagerAdapter;
 import edu.ub.pis.app.view.ui.manage_routines.pages.AddRoutinesPage;
 import edu.ub.pis.app.view.ui.manage_routines.pages.SeeRoutinesPage;
+import me.relex.circleindicator.CircleIndicator;
 
 public class ManageRoutinesFragment extends Fragment {
     private FragmentManageRoutinesBinding binding;
     private ViewPager pager;
     private ViewPagerAdapter pagerAdapter;
+    private CircleIndicator indicator;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -40,6 +43,9 @@ public class ManageRoutinesFragment extends Fragment {
         pager = binding.viewPager;
         pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments);
         pager.setAdapter(pagerAdapter);
+
+        indicator = binding.ciManage;
+        indicator.setViewPager(pager);
     }
 
     @Override
