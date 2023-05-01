@@ -2,9 +2,11 @@ package edu.ub.pis.app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -23,6 +25,10 @@ public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+
+    private boolean doubleBackToExitPressedOnce = false;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,4 +77,26 @@ public class HomeActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            finishAffinity(); //Cierra la aplicacion
+            return;
+        }
+
+        //Primera vez que se pulsa back y se da el aviso
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Pulsa de nuevo para salir", Toast.LENGTH_SHORT).show();
+
+        //Tiempo limite para dar segundo click y cerrar la app, si no vuelve a estado anterior
+        mHandler.postDelayed(mRunnable, 2000);
+    }
+
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            doubleBackToExitPressedOnce = false;
+        }
+    };
 }
