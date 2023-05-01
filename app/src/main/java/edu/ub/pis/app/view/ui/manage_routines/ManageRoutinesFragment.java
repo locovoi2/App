@@ -21,12 +21,6 @@ public class ManageRoutinesFragment extends Fragment {
     private ViewPagerAdapter pagerAdapter;
     private CircleIndicator indicator;
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("current_page", pager.getCurrentItem());
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
 
@@ -40,12 +34,25 @@ public class ManageRoutinesFragment extends Fragment {
         fragments.add(new AddRoutinesPage());
         fragments.add(new SeeRoutinesPage());
 
-        pager = binding.viewPager;
+        pager = binding.viewPagerManage;
         pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments);
         pager.setAdapter(pagerAdapter);
 
         indicator = binding.ciManage;
         indicator.setViewPager(pager);
+
+        /*
+        for (int i = 0; i < indicator.getChildCount(); i++) {
+            final int page = i;
+            indicator.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pager.setCurrentItem(page);
+                }
+            });
+        }
+        //Metodo para hace clickables los indicadores
+         */
     }
 
     @Override
