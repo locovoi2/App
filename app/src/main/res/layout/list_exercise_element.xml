@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/exercise_card"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <!-- Title, secondary and supporting text -->
+
+        <TextView
+            android:id="@+id/listElementExerciseName"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Full Name"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/listElementSeries"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Series"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
+
+        <TextView
+            android:id="@+id/listElementRepes"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Repes"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listElementSeries"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/listElementWeight"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:text="Weight"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listElementRepes"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="376dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_margin="8dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:orientation="horizontal">-->
+
+        <!--            <com.google.android.material.button.MaterialButton-->
+        <!--                style="?attr/borderlessButtonStyle"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="center|center_horizontal"-->
+        <!--                android:gravity="center"-->
+        <!--                android:text="SETEA UN CLICK LISTENER EN TU ADAPTER" />-->
+
+        <!--        </LinearLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
