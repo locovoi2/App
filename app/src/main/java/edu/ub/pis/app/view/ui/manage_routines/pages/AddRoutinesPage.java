@@ -4,19 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import edu.ub.pis.app.R;
-import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
-
-
-public class AddRoutinesPage extends Fragment {
-    private FragmentManageRoutinesBinding binding;
-=======
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -57,26 +45,11 @@ public class AddRoutinesPage extends Fragment {
     private Button mButtonFinish;
     private RoutineRepository mRepository = RoutineRepository.getInstance();;
     private ArrayList<Exercise> exercisesList;
->>>>>>> oscar
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-<<<<<<< HEAD
-        ViewGroup rootView = (ViewGroup) inflater
-                .inflate(R.layout.page_add_routines,
-                        container,
-                        false);
 
-        binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
-
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-=======
         binding = FragmentAddNewRoutineBinding.inflate(inflater, container, false);
 
         exercisesRecyclerView = binding.exercisesRecyclerView;
@@ -163,7 +136,6 @@ public class AddRoutinesPage extends Fragment {
             exercisesAdapter.updateExercises();
             exercisesAdapter.setExercises(exercisesList);
         }
->>>>>>> oscar
     }
 
 
