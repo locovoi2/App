@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import edu.ub.pis.app.databinding.FragmentDailyRoutinesBinding;
@@ -59,6 +61,12 @@ public class DailyRoutinesFragment extends Fragment {
 
         indicator = binding.ciDaily;
         indicator.setViewPager(pager);
+
+        LocalDate currentDate = LocalDate.now();
+        DayOfWeek currentDayOfWeek = currentDate.getDayOfWeek();
+        int currentDayOfWeekValue = currentDayOfWeek.getValue() - 1;
+
+        pager.setCurrentItem(currentDayOfWeekValue);
 
         //Metodo para hace clickables los indicadores
         for (int i = 0; i < indicator.getChildCount(); i++) {
