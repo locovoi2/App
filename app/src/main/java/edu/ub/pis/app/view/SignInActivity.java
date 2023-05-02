@@ -26,6 +26,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -88,8 +92,34 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //Codi per fer sign in
-                                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                                startActivity(intent);
+
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                CollectionReference usersCollection = db.collection("users");
+                                DocumentReference userDoc = usersCollection.document(email);
+
+                                userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                // Obtén el valor del campo "nombre"
+                                                String name = document.getString("name");
+                                                String surname = document.getString("surname");
+                                                String Name_surname = name + " " + surname;
+                                                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                                                intent.putExtra("USER_MAIL", email);
+                                                intent.putExtra("USER_NAME", Name_surname);
+                                                startActivity(intent);
+                                            } else {
+                                                // Log.d("MiActividad", "No se encontró el documento");
+                                            }
+                                        } else {
+                                            // Log.d("MiActividad", "Error al obtener el documento", task.getException());
+                                        }
+                                    }
+                                });
+
                             } else {
                                 Exception exception = task.getException();
                                 if (exception != null) {

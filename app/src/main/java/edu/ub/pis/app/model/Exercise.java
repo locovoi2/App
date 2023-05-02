@@ -31,7 +31,7 @@ public class Exercise implements Serializable {
     }
 
     public String getSeries() {
-        return series;
+        return this.series;
     }
 
     public void setSeries(String series) {
@@ -39,7 +39,7 @@ public class Exercise implements Serializable {
     }
 
     public String getReps() {
-        return reps;
+        return this.reps;
     }
 
     public void setReps(String reps) {
@@ -47,7 +47,7 @@ public class Exercise implements Serializable {
     }
 
     public String getWeight() {
-        return weight;
+        return this.weight;
     }
 
     public void setWeight(String weight) {

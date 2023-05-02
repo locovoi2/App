@@ -128,6 +128,9 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 checkBoxTrainer.isChecked()
                                                         );
                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                                                        String Name_surname = name + " " + surname;
+                                                        intent.putExtra("USER_MAIL", email);
+                                                        intent.putExtra("USER_NAME", Name_surname);
                                                         startActivity(intent);
                                                     } else {
                                                         Toast.makeText(getApplicationContext(), "Ha ocurrido un error al registrar al usuario", Toast.LENGTH_SHORT).show();

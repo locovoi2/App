@@ -4,86 +4,61 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
-import edu.ub.pis.app.model.Exercise;
-import edu.ub.pis.app.model.Routine;
-import edu.ub.pis.app.model.RoutineRepository;
+import edu.ub.pis.app.view.ViewPagerAdapter;
+import edu.ub.pis.app.view.ui.manage_routines.pages.AddRoutinesPage;
+import edu.ub.pis.app.view.ui.manage_routines.pages.SeeRoutinesPage;
+import me.relex.circleindicator.CircleIndicator;
 
 public class ManageRoutinesFragment extends Fragment {
     private FragmentManageRoutinesBinding binding;
-    private ViewPager viewPager;
-    private RecyclerView routinesRecyclerView;
-    private RecyclerView exercisesRecyclerView;
-    private EditText exerciseNameEditText;
-    private Button addExerciseButton;
-    private List<Routine> routineList;
-    private ArrayList<Exercise> exerciseList;
+    private ViewPager pager;
+    private ViewPagerAdapter pagerAdapter;
+    private CircleIndicator indicator;
 
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
-
-
-        viewPager = binding.viewPager;
-
-
-        // Set up the ViewPager
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        //viewPagerAdapter.addFragment(new RoutineFragment(), "All Routines");
-        viewPagerAdapter.addFragment(new AddRoutineFragment(), "Add Routine");
-        viewPager.setAdapter(viewPagerAdapter);
 
         return binding.getRoot();
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> fragmentList = new ArrayList<>();
-        private final List<String> fragmentTitleList = new ArrayList<>();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        public ViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new AddRoutinesPage());
+        fragments.add(new SeeRoutinesPage());
 
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
+        pager = binding.viewPagerManage;
+        pagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments);
+        pager.setAdapter(pagerAdapter);
 
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
+        indicator = binding.ciManage;
+        indicator.setViewPager(pager);
 
-        public void addFragment(Fragment fragment, String title) {
-            fragmentList.add(fragment);
-            fragmentTitleList.add(title);
+        /*
+        for (int i = 0; i < indicator.getChildCount(); i++) {
+            final int page = i;
+            indicator.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pager.setCurrentItem(page);
+                }
+            });
         }
+        //Metodo para hace clickables los indicadores
+         */
+    }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragmentTitleList.get(position);
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
 
@@ -104,7 +79,6 @@ public class ManageRoutinesFragment extends Fragment {
     private RoutineRepository mRepository;
     private ArrayList<Exercise> exes;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
 
@@ -122,7 +96,6 @@ public class ManageRoutinesFragment extends Fragment {
         mEditTextWeight = binding.editTextWeight;
         mButtonAdd = binding.buttonAdd;
         mButtonFinish = binding.buttonFinish;
-
 
         mButtonAdd.setOnClickListener(view -> {
             addExercise(mEditTextExerciseName.getText().toString(),
@@ -170,4 +143,6 @@ public class ManageRoutinesFragment extends Fragment {
             mEditTextWeight.setText("");
         }
     }
-}*/
+}
+
+ */

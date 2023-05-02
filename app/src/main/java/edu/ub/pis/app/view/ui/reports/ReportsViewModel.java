@@ -10,7 +10,6 @@ public class ReportsViewModel extends ViewModel {
 
     public ReportsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
     }
 
     public LiveData<String> getText() {
