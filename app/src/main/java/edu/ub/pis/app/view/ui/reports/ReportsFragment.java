@@ -19,7 +19,6 @@ public class ReportsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ReportsViewModel reportsViewModel = new ViewModelProvider(this).get(ReportsViewModel.class);
 
         binding = FragmentReportsBinding.inflate(inflater, container, false);
 
