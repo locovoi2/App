@@ -20,7 +20,6 @@ public class TrainersFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TrainersViewModel trainersViewModel = new ViewModelProvider(this).get(TrainersViewModel.class);
 
         binding = FragmentTrainersBinding.inflate(inflater, container, false);
 
