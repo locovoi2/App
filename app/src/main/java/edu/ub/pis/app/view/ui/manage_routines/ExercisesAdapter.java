@@ -43,7 +43,7 @@ public class ExercisesAdapter  extends RecyclerView.Adapter<ExercisesAdapter.Vie
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         // Inflate crea una view genèrica definida pel layout que l'hi passem (add new routine layout)
-        View view = inflater.inflate(R.layout.fragment_add_new_routine, parent, false);
+        View view = inflater.inflate(R.layout.list_exercise_element, parent, false);
 
         // La classe ViewHolder farà de pont entre la classe Exercise del model i la view.
         return new ExercisesAdapter.ViewHolder(view);
@@ -69,11 +69,11 @@ public class ExercisesAdapter  extends RecyclerView.Adapter<ExercisesAdapter.Vie
     }
 
     /**
-     * Mètode que seteja de nou la llista d'usuaris si s'hi han fet canvis de manera externa.
+     * Mètode que seteja de nou la llista d'eercises si s'hi han fet canvis de manera externa.
      *
      * @param exercises
      */
-    public void setUsers(ArrayList<Exercise> exercises) {
+    public void setExercises(ArrayList<Exercise> exercises) {
         this.mExercises = exercises; // no recicla/repinta res
     }
 
@@ -89,7 +89,7 @@ public class ExercisesAdapter  extends RecyclerView.Adapter<ExercisesAdapter.Vie
      *
      * @param position
      */
-    public void hideUser(int position) {
+    public void hideExercise(int position) {
         notifyItemRemoved(position);
     }
 
@@ -106,17 +106,17 @@ public class ExercisesAdapter  extends RecyclerView.Adapter<ExercisesAdapter.Vie
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mName = itemView.findViewById(R.id.editTextExerciseName);
-            mSeries = itemView.findViewById(R.id.editTextSeries);
-            mReps = itemView.findViewById(R.id.editTextReps);
-            mWeight = itemView.findViewById(R.id.editTextWeight);
+            mName = itemView.findViewById(R.id.listElementExerciseName);
+            mSeries = itemView.findViewById(R.id.listElementRepes);
+            mReps = itemView.findViewById(R.id.listElementRepes);
+            mWeight = itemView.findViewById(R.id.listElementWeight);
         }
 
         public void bind(final Exercise exercise, OnClickHideListener listener) {
             mName.setText(exercise.getName());
             mSeries.setText(exercise.getSeries());
-            mReps.setText(exercise.getSeries());
-            mWeight.setText(exercise.getSeries());
+            mReps.setText(exercise.getReps());
+            mWeight.setText(exercise.getWeight());
             // Seteja el listener onClick del botó d'amagar (hide), que alhora
             // cridi el mètode OnClickHide que implementen els nostres propis
             // listeners de tipus OnClickHideListener.
