@@ -17,12 +17,13 @@ import java.util.ArrayList;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
+import edu.ub.pis.app.databinding.PageSeeRoutinesBinding;
 import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.viewmodel.manage_routines.pages.SeeRoutinesViewModel;
 
 
 public class SeeRoutinesPage extends Fragment {
-    private FragmentManageRoutinesBinding binding;
+    private PageSeeRoutinesBinding binding;
 
     /** ViewModel del SeeRoutinesPage */
     private SeeRoutinesViewModel mSeeRoutinesViewModel;
@@ -39,7 +40,7 @@ public class SeeRoutinesPage extends Fragment {
                         container,
                         false);
 
-        binding = FragmentManageRoutinesBinding.inflate(inflater, container, false);
+        binding = PageSeeRoutinesBinding.inflate(inflater, container, false);
 
         return rootView;
     }
@@ -52,11 +53,11 @@ public class SeeRoutinesPage extends Fragment {
         mSeeRoutinesViewModel = new ViewModelProvider(this)
                 .get(SeeRoutinesViewModel.class);
 
-        mRoutineCardsRV = binding.getRoot().findViewById(R.id.seeRoutinesRv);
+        mRoutineCardsRV = binding.seeRoutinesRv;
 
         //Assignem un layout manager.
         LinearLayoutManager manager = new LinearLayoutManager(
-                getContext(), LinearLayoutManager.VERTICAL, false
+                getActivity(), LinearLayoutManager.VERTICAL, false
         );
         mRoutineCardsRV.setLayoutManager(manager);
 
