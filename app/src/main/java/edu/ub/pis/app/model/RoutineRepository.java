@@ -45,7 +45,7 @@ public class RoutineRepository {
      */
     public static RoutineRepository getInstance() { return mInstance; }
 
-    public void addOnLoadUsersListener(OnLoadRoutinesListener listener) {
+    public void addOnLoadRoutinesListener(OnLoadRoutinesListener listener) {
         mOnLoadRoutinesListeners.add(listener);
     }
 

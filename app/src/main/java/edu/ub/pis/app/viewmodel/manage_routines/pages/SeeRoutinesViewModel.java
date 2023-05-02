@@ -24,7 +24,6 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
     private RoutineRepository mRoutineRepository; // On es manté la informació dels usuaris
 
     /* Atributs auxiliars */
-
     private String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail(); //mail del usuario actual
 
     public SeeRoutinesViewModel(Application application) {
@@ -38,10 +37,10 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
         // Quan s'acabin de llegir de la BBDD els usuaris, el ViewModel ha d'actualitzar
         // l'observable mUsers. I com que la RecyclerView de la HomeActivity està observant aquesta
         // mateixa variable (mUsers), també se n'enterarà
-        mRoutineRepository.addOnLoadUsersListener(new RoutineRepository.OnLoadRoutinesListener() {
+        mRoutineRepository.addOnLoadRoutinesListener(new RoutineRepository.OnLoadRoutinesListener() {
             @Override
             public void onLoadRoutines(ArrayList<Routine> routines) {
-                SeeRoutinesViewModel.this.setRoutines(routines);
+                setRoutines(routines);
             }
         });
     }
@@ -70,7 +69,7 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
     }
 
     /* Mètode que crida a carregar dades dels usuaris */
-    public void loadUsersFromRepository() {
+    public void loadRoutinesFromRepository() {
         mRoutineRepository.loadRoutines(userEmail, mRoutines.getValue());
     }
 

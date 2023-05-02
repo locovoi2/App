@@ -1,12 +1,13 @@
 package edu.ub.pis.app.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe contenidora de la informacio d'una rutina
  */
-public class Routine {
+public class Routine implements Serializable {
     private String name;
     private ArrayList<Exercise> exercises;
 

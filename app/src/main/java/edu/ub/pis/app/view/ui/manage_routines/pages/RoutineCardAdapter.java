@@ -70,7 +70,7 @@ public class RoutineCardAdapter extends RecyclerView.Adapter<RoutineCardAdapter.
      * Mètode que seteja de nou la llista d'usuaris si s'hi han fet canvis de manera externa.
      * @param routines
      */
-    public void setUsers(ArrayList<Routine> routines) {
+    public void setRoutines(ArrayList<Routine> routines) {
         this.mRoutines = routines; // no recicla/repinta res
     }
 
