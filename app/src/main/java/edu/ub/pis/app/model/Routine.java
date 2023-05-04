@@ -28,7 +28,7 @@ public class Routine implements Serializable {
         this.name = name;
     }
 
-    public List<Exercise> getExercises() {
+    public ArrayList<Exercise> getExercises() {
         return exercises;
     }
 
