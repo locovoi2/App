@@ -29,13 +29,13 @@
             android:id="@+id/listElementSeries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="60dp"
             android:gravity="center|center_horizontal|center_vertical"
             android:text="S"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintEnd_toStartOf="@+id/listElementRepes"
-            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
@@ -43,27 +43,26 @@
             android:id="@+id/listElementRepes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
             android:gravity="center|center_horizontal|center_vertical"
-
             android:text="R"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/listElementExerciseName"
-            app:layout_constraintVertical_bias="0.43" />
+
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/listElementWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="W"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.433"
+            app:layout_constraintHorizontal_bias="0.442"
             app:layout_constraintStart_toEndOf="@+id/listElementRepes"
             app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
@@ -102,35 +101,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
+            android:layout_marginBottom="16dp"
             android:text="Series"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listElementSeries"
-            app:layout_constraintVertical_bias="0.47" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/num_repes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:text="Repes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listElementRepes"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/num_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="52dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="16dp"
             android:text="Weight"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listElementWeight"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
