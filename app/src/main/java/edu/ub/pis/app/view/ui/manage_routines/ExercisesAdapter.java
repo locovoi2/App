@@ -107,7 +107,7 @@ public class ExercisesAdapter  extends RecyclerView.Adapter<ExercisesAdapter.Vie
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.listElementExerciseName);
-            mSeries = itemView.findViewById(R.id.listElementRepes);
+            mSeries = itemView.findViewById(R.id.listElementSeries);
             mReps = itemView.findViewById(R.id.listElementRepes);
             mWeight = itemView.findViewById(R.id.listElementWeight);
         }

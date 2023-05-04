@@ -125,7 +125,6 @@ public class AddRoutinesPage extends Fragment {
         } else {
             Exercise exercise = new Exercise(name, series, reps, weight);
             exercisesList.add(exercise);
-            System.out.println(exercisesList);
             mEditTextExerciseName.setText("");
             mEditTextSeries.setText("");
             mEditTextReps.setText("");
