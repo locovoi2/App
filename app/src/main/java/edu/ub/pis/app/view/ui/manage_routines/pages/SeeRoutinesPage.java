@@ -65,7 +65,7 @@ public class SeeRoutinesPage extends Fragment {
         mRoutineCardsRV.setLayoutManager(manager);
 
         // (2) Inicialitza el RecyclerViewAdapter i li assignem a la RecyclerView.
-        mRoutineCardRVAdapter = new RoutineCardAdapter(
+        mRoutineCardRVAdapter = new RoutineCardAdapter(getContext(),
                 mSeeRoutinesViewModel.getRoutines().getValue() // Passem-li referencia llista rutines
         );
 
