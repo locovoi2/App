@@ -19,16 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.FragmentAddNewRoutineBinding;
-import edu.ub.pis.app.databinding.FragmentManageRoutinesBinding;
 import edu.ub.pis.app.model.Exercise;
 import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.model.RoutineRepository;
-import edu.ub.pis.app.model.UserRepository;
-import edu.ub.pis.app.view.ui.manage_routines.ExercisesAdapter;
 import edu.ub.pis.app.viewmodel.manage_routines.pages.SeeRoutinesViewModel;
 
 

@@ -1,4 +1,4 @@
-package edu.ub.pis.app.view.ui.manage_routines;
+package edu.ub.pis.app.view.ui.manage_routines.pages;
 
 import android.view.LayoutInflater;
 import android.view.View;
