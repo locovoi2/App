@@ -10,23 +10,21 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.Routine;
-import edu.ub.pis.app.view.ui.manage_routines.ExercisesAdapter;
 
 public class RoutineCardAdapter extends RecyclerView.Adapter<RoutineCardAdapter.ViewHolder> {
     private ArrayList<Routine> mRoutines; //Referencia a la llista de rutines
     private OnClickInfoListener mOnClickInfoListener; // Qui hagi d'obrir popup amb info exercicis
-
     private static RoutineCardAdapter instance;
     private Context context;
+
     /** Definició de listener (interficie)
      *  per a quan algú vulgui escoltar un event de OnClickInfo, és a dir,
      *  quan l'usuari faci click en l'imatge info de la page AddRoutinesPage
@@ -97,23 +95,30 @@ public class RoutineCardAdapter extends RecyclerView.Adapter<RoutineCardAdapter.
         notifyDataSetChanged();
     }
 
+    public void removeRoutine(int position) {
+        mRoutines.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mRoutineName;
         private final ImageView mRoutinePicture;
         private final ImageView mInfoPicture;
+        public ConstraintLayout mlayoutABorrar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mRoutineName = itemView.findViewById(R.id.routine_name);
             mRoutinePicture = itemView.findViewById(R.id.foto_descriptiva);
             mInfoPicture = itemView.findViewById(R.id.info_icon);
+            mlayoutABorrar = itemView.findViewById(R.id.layoutAborrar);
         }
 
         public void bind(final Routine routine, OnClickInfoListener Infolistener, Context context) {
             mRoutineName.setText(routine.getName());
-            // Seteja el listener onClick del botó d'amagar (hide), que alhora
-            // cridi el mètode OnClickHide que implementen els nostres propis
-            // listeners de tipus OnClickHideListener.
+            // Seteja el listener onClick del botó d'info (info), que alhora
+            // cridi el mètode OnClickInfo que implementen els nostres propis
+            // listeners de tipus OnClickInfoListener.
             mInfoPicture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
