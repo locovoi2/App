@@ -1,9 +1,11 @@
 package edu.ub.pis.app.view.ui.manage_routines.pages;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -72,6 +76,7 @@ public class SeeRoutinesPage extends Fragment implements RecyclerItemTouchHelper
 
         mRoutineCardsRV.setAdapter(mRoutineCardRVAdapter); //Associem adapter
 
+        //Associem ItemTouchHelper que ajudi a deslliçar
         ItemTouchHelper.SimpleCallback simpleCallback =
                 new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, SeeRoutinesPage.this);
 
@@ -109,6 +114,34 @@ public class SeeRoutinesPage extends Fragment implements RecyclerItemTouchHelper
         if(viewHolder instanceof RoutineCardAdapter.ViewHolder) {
             mSeeRoutinesViewModel.removeRoutineFromSeeRoutines(position);
             mRoutineCardRVAdapter.hideRoutine(position);
+
+            //TextView que conte el nom de la rutina
+            TextView RoutineName = viewHolder.itemView.findViewById(R.id.routine_name);
+
+            Snackbar snackbar = Snackbar.make(((RoutineCardAdapter.ViewHolder) viewHolder).mlayoutABorrar,
+                    RoutineName.getText() + " Deleted", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Undo", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mSeeRoutinesViewModel.addRoutineFromSeeRoutines(position);
+                    mRoutineCardRVAdapter.restoreItem(position);
+                }
+            });
+
+            snackbar.addCallback(new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar1, int event) {
+                    if(event != DISMISS_EVENT_ACTION) {
+                        //Si la snackbar es tanca sense accio, es a dir,
+                        //Despres de que s'hagi acabat el temps per poder desfer la eliminacio
+                        //Es confirma l'eliminacio a la BBDD
+                        mSeeRoutinesViewModel.removeRoutineFromBBDD();
+                    }
+                }
+            });
+
+            snackbar.setActionTextColor(Color.GREEN);
+            snackbar.show();
         }
     }
 

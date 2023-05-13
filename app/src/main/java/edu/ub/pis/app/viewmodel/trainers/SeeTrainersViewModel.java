@@ -1,4 +1,4 @@
-package edu.ub.pis.app.viewmodel;
+package edu.ub.pis.app.viewmodel.trainers;
 
         import android.app.Application;
 
@@ -13,7 +13,7 @@ package edu.ub.pis.app.viewmodel;
         import edu.ub.pis.app.model.User;
         import edu.ub.pis.app.model.UserRepository;
 
-public class SeeUsersViewModel extends AndroidViewModel {
+public class SeeTrainersViewModel extends AndroidViewModel {
     private final String TAG = "SeeTrainersViewModel";
 
     /* Elements observables del ViewModel */
@@ -26,7 +26,7 @@ public class SeeUsersViewModel extends AndroidViewModel {
     /* Atributs auxiliars */
     private String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail(); //mail del usuario actual
 
-    public SeeUsersViewModel(Application application) {
+    public SeeTrainersViewModel(Application application) {
         super(application);
 
         // Instancia els atributs

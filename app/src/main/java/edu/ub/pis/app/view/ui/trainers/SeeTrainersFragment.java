@@ -19,17 +19,13 @@ import java.util.ArrayList;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.FragmentTrainersBinding;
-import edu.ub.pis.app.databinding.PageSeeRoutinesBinding;
-import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.model.User;
-import edu.ub.pis.app.view.ui.manage_routines.pages.RoutineCardAdapter;
-import edu.ub.pis.app.viewmodel.SeeUsersViewModel;
-import edu.ub.pis.app.viewmodel.manage_routines.pages.SeeRoutinesViewModel;
+import edu.ub.pis.app.viewmodel.trainers.SeeTrainersViewModel;
 
 public class SeeTrainersFragment extends Fragment {
 
     private FragmentTrainersBinding binding;
-    private SeeUsersViewModel mSeeTrainersViewModel;
+    private SeeTrainersViewModel mSeeTrainersViewModel;
 
     private RecyclerView mTrainersRV; //RecyclerView
 
@@ -54,7 +50,7 @@ public class SeeTrainersFragment extends Fragment {
 
         // Inicialitza el ViewModel d'aquest fragment
         mSeeTrainersViewModel = new ViewModelProvider(this)
-                .get(SeeUsersViewModel.class);
+                .get(SeeTrainersViewModel.class);
 
         mTrainersRV = binding.seeTrainersRV;
 
