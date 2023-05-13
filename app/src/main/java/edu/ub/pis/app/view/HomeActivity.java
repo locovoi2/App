@@ -1,8 +1,13 @@
 package edu.ub.pis.app.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -68,6 +73,13 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
+        //Posem de color blanc els settings
+        MenuItem settingsMenuItem = menu.findItem(R.id.action_settings);
+        SpannableString spannableString = new SpannableString(settingsMenuItem.getTitle());
+        spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        settingsMenuItem.setTitle(spannableString);
+
         return true;
     }
 

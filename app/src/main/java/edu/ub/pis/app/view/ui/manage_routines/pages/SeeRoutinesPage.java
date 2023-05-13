@@ -103,10 +103,12 @@ public class SeeRoutinesPage extends Fragment implements RecyclerItemTouchHelper
 
     }
 
+    //Listener per quan es deslliça
     @Override
     public void onSwipe(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if(viewHolder instanceof RoutineCardAdapter.ViewHolder) {
-            mRoutineCardRVAdapter.removeRoutine(viewHolder.getAdapterPosition());
+            mSeeRoutinesViewModel.removeRoutineFromSeeRoutines(position);
+            mRoutineCardRVAdapter.hideRoutine(position);
         }
     }
 

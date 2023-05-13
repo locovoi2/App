@@ -95,8 +95,7 @@ public class RoutineCardAdapter extends RecyclerView.Adapter<RoutineCardAdapter.
         notifyDataSetChanged();
     }
 
-    public void removeRoutine(int position) {
-        mRoutines.remove(position);
+    public void hideRoutine(int position) {
         notifyItemRemoved(position);
     }
 
