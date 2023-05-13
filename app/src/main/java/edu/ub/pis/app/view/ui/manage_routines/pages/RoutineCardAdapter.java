@@ -99,6 +99,8 @@ public class RoutineCardAdapter extends RecyclerView.Adapter<RoutineCardAdapter.
         notifyItemRemoved(position);
     }
 
+    public void restoreItem(int position) { notifyItemInserted(position); }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mRoutineName;
         private final ImageView mRoutinePicture;
