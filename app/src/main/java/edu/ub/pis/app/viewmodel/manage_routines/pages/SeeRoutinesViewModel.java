@@ -34,9 +34,9 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
         mHidPosition = new MutableLiveData<>();
         mRoutineRepository = RoutineRepository.getInstance();
 
-        // Quan s'acabin de llegir de la BBDD els usuaris, el ViewModel ha d'actualitzar
-        // l'observable mUsers. I com que la RecyclerView de la HomeActivity està observant aquesta
-        // mateixa variable (mUsers), també se n'enterarà
+        // Quan s'acabin de llegir de la BBDD les rutines, el ViewModel ha d'actualitzar
+        // l'observable mRoutines. I com que la RecyclerView de la SeeRoutinesPage està observant aquesta
+        // mateixa variable (mRoutines), també se n'enterarà
         mRoutineRepository.addOnLoadRoutinesListener(new RoutineRepository.OnLoadRoutinesListener() {
             @Override
             public void onLoadRoutines(ArrayList<Routine> routines) {
@@ -61,8 +61,8 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
     }
 
     /*
-     * Mètode que serà invocat pel UserRepository.OnLoadUsersListener definit al
-     * constructor (quan l'objecte UserRepository hagi acabat de llegir de la BBDD).
+     * Mètode que serà invocat pel RoutineRepository.OnLoadRoutinesListener definit al
+     * constructor (quan l'objecte RoutineRepository hagi acabat de llegir de la BBDD).
      */
     public void setRoutines(ArrayList<Routine> routines) {
         mRoutines.setValue(routines);
@@ -74,12 +74,12 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
     }
 
     /*
-     * Mètode que esborra un usuari de la llista d'usuaris, donada una posició en
-     * la llista. La posició ve del UserCardAdapter, que es torna a la HomeActivity
-     * i aquesta crida aquest mètode, després que el HomeActivityViewModel hagi esborrat
-     * l'usuari en qüestió de mUsers.
+     * Mètode que esborra una rutina de la llista de rutinas, donada una posició en
+     * la llista. La posició ve del RoutineCardAdapter, que es torna a la SeeRoutinesPage
+     * i aquesta crida aquest mètode, després que el SeeRoutinesViewModel hagi esborrat
+     * la rutina en qüestió de mRoutines.
      */
-    public void removeUserFromHome(int position) {
+    public void removeRoutineFromSeeRoutines(int position) {
         mRoutines.getValue().remove(position);
     }
 }

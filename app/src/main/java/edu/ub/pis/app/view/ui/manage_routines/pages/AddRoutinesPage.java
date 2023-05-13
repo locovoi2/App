@@ -20,7 +20,7 @@ import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
 
-import edu.ub.pis.app.databinding.FragmentAddNewRoutineBinding;
+import edu.ub.pis.app.databinding.PageAddNewRoutineBinding;
 import edu.ub.pis.app.model.Exercise;
 import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.model.RoutineRepository;
@@ -28,7 +28,7 @@ import edu.ub.pis.app.viewmodel.manage_routines.pages.SeeRoutinesViewModel;
 
 
 public class AddRoutinesPage extends Fragment {
-    private FragmentAddNewRoutineBinding binding;
+    private PageAddNewRoutineBinding binding;
     private SeeRoutinesViewModel mSeeRoutinesViewModel;
     private final String TAG = "SignInActivity";
     private String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail(); //mail del usuario actual
@@ -47,7 +47,7 @@ public class AddRoutinesPage extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        binding = FragmentAddNewRoutineBinding.inflate(inflater, container, false);
+        binding = PageAddNewRoutineBinding.inflate(inflater, container, false);
 
         //Inicialitzem view model de see routines per poder repintar el RV de rutines guardades
         //ViewModelProvider ja segueix singleton
