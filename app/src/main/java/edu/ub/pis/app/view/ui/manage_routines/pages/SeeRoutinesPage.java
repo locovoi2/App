@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,7 @@ import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.viewmodel.manage_routines.pages.SeeRoutinesViewModel;
 
 
-public class SeeRoutinesPage extends Fragment {
+public class SeeRoutinesPage extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     private PageSeeRoutinesBinding binding;
 
     /** ViewModel del SeeRoutinesPage */
@@ -71,6 +72,11 @@ public class SeeRoutinesPage extends Fragment {
 
         mRoutineCardsRV.setAdapter(mRoutineCardRVAdapter); //Associem adapter
 
+        ItemTouchHelper.SimpleCallback simpleCallback =
+                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, SeeRoutinesPage.this);
+
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(mRoutineCardsRV);
+
         mRoutineCardRVAdapter.setOnClickInfoListener(new RoutineCardAdapter.OnClickInfoListener() {
             // Listener que escoltarà quan interactuem amb un item en una posició donada
             // dins de la recicler view. En aquest cas, quan es faci clic a l'imatge d'info
@@ -97,7 +103,14 @@ public class SeeRoutinesPage extends Fragment {
 
     }
 
-
+    //Listener per quan es deslliça
+    @Override
+    public void onSwipe(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if(viewHolder instanceof RoutineCardAdapter.ViewHolder) {
+            mSeeRoutinesViewModel.removeRoutineFromSeeRoutines(position);
+            mRoutineCardRVAdapter.hideRoutine(position);
+        }
+    }
 
     @Override
     public void onDestroyView() {
