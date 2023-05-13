@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/light_green"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/popup_name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre del entrenador"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/popup_email_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_name_text"
+        android:text="Email: example@mail.com"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/popup_phone_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_email_text"
+        android:text="Teléfono: +34 123 456 789"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/popup_experience_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_phone_text"
+        android:text="Experiencia: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/popup_price_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popup_experience_text"
+        android:text="Precio: 50€/hora"
+        android:textSize="14sp" />
+    <!--<Button
+        android:id="@+id/popup_close_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Close" />-->
+
+</RelativeLayout>
