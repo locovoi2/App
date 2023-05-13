@@ -1,0 +1,176 @@
+[33mcommit aa26ae0896e1d9627df45e98be3ef74b88f6131d[m[33m ([m[1;36mHEAD -> [m[1;32mhector2[m[33m, [m[1;32mmain[m[33m)[m
+Author: HectorRecloud <hector@recloud.es>
+Date:   Tue May 2 17:38:54 2023 +0200
+
+    ACabat daily routines
+
+[33mcommit 40c04b9d08334c38a107ff755dcbdc6141934811[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 5e8dd5e 84e44c2
+Author: Xavier Vera de la Gala <57797041+Xavi888@users.noreply.github.com>
+Date:   Mon May 1 17:44:51 2023 +0200
+
+    Merge pull request #9 from locovoi2/damian
+    
+    Indicador en manageroutines y Estructura de daily routines
+
+[33mcommit 84e44c275d8dcec43e6fc796da37229160342cb6[m[33m ([m[1;31morigin/damian[m[33m)[m
+Author: Xavi <xavega@live.com>
+Date:   Mon May 1 17:40:11 2023 +0200
+
+    Gradle cambiado de 8.0.0 a 7.4.2
+
+[33mcommit 859c45d87e2398872a3a330d9711aa64121831d7[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 05:35:20 2023 +0200
+
+    ViewPager y circleIndicator clickable en dailyroutines 2
+
+[33mcommit 2f4c582ba765766b73e1093f21a5ad8869556c68[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 05:31:36 2023 +0200
+
+    ViewPager y circleIndicator clickable en dailyroutines
+
+[33mcommit 2626e4ea44013279b95080440170f06ad308758a[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 04:34:10 2023 +0200
+
+    CircleIndicator en manage routines
+
+[33mcommit 5e8dd5e1c0218a49a8b0e1a40eec5f8407e00686[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 03:38:39 2023 +0200
+
+    Funcion del boton back para cerrar app
+
+[33mcommit 479c8fde9f769d2e2d18d8d6fdf3581aff8c0d9c[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 03:09:07 2023 +0200
+
+    Cambio del gitignore a ver si ahora funciona xd
+
+[33mcommit f579e9cb2c028ebd6ac5e14929b4d3e26df27acc[m
+Merge: 491a93e d3b92f2
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 03:03:38 2023 +0200
+
+    Merge remote-tracking branch 'origin/main' into damian
+    
+    # Conflicts:
+    #       .gradle/7.5/executionHistory/executionHistory.lock
+    #       .gradle/7.5/fileHashes/fileHashes.bin
+    #       .gradle/7.5/fileHashes/fileHashes.lock
+    #       .gradle/buildOutputCleanup/buildOutputCleanup.lock
+    #       app/src/main/res/layout/activity_sign_in.xml
+
+[33mcommit 491a93eba169ef37de9ae5085a31836373eab02d[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 03:02:27 2023 +0200
+
+    Un poco de diseño (2?)
+
+[33mcommit d3b92f21b4bec4d515d4b1555e8afdca66e79c56[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Mon May 1 02:21:48 2023 +0200
+
+    Un poco de diseño
+
+[33mcommit e1692b48734753d8a6c79a5e5d74c46f28415dda[m
+Merge: 5eb4ea5 ee11c51
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Sun Apr 30 22:21:53 2023 +0200
+
+    Merge remote-tracking branch 'origin/main' into damian
+    
+    # Conflicts:
+    #       .gradle/7.5/checksums/checksums.lock
+    #       .gradle/7.5/executionHistory/executionHistory.lock
+    #       .gradle/7.5/fileHashes/fileHashes.bin
+    #       .gradle/7.5/fileHashes/fileHashes.lock
+    #       .gradle/buildOutputCleanup/buildOutputCleanup.lock
+    #       .gradle/buildOutputCleanup/outputFiles.bin
+    #       .idea/misc.xml
+
+[33mcommit ee11c51c731392d6dd243acc36c45985dbdcfb4c[m[33m ([m[1;31morigin/xavi[m[33m)[m
+Author: Xavi <xavega@live.com>
+Date:   Sun Apr 30 10:36:20 2023 +0200
+
+    Home Activity actualizado (se muestra el nombre y mail del usuario)
+
+[33mcommit 5eb4ea58d1af1f28ab7d3e83b20417344eb368b0[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Sun Apr 30 05:05:03 2023 +0200
+
+    View Pager de manage routines (arreglado, que habia un problem) y quitar un poco de codigo
+
+[33mcommit b583c2a5e5490f47ac6d00154a9f527daddaf30b[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Sun Apr 30 03:54:58 2023 +0200
+
+    View Pager de manage routines y sign in mas bonito
+
+[33mcommit e8444499b15aed8adfb78548e91728bdfdbad9b3[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Thu Apr 27 09:53:38 2023 +0200
+
+    Manage routines (solamente add)
+
+[33mcommit 195fba8fba277ac089e9dff4d237ce177168734c[m[33m ([m[1;31morigin/pablo[m[33m)[m
+Author: ILikeDonetes <56253843+ILikeDonetes@users.noreply.github.com>
+Date:   Tue Apr 25 14:43:04 2023 +0200
+
+    Cambiado a verde el highlight al introducir textos.
+
+[33mcommit 7a40dec190b9e168b2d4f9220fd2ffe8bfbcbb6b[m
+Author: ILikeDonetes <56253843+ILikeDonetes@users.noreply.github.com>
+Date:   Tue Apr 25 14:35:11 2023 +0200
+
+    Se ha añadido el navigation drawer a la activity home y se han creado los fragments de las diferentes funciones de la actividad.
+
+[33mcommit f52b6f9104eeb80b6bf5c4b369e479d57fdbcf5f[m
+Merge: bac4e13 d6bc78b
+Author: Damian Baldovino <76792339+locovoi2@users.noreply.github.com>
+Date:   Tue Apr 25 03:08:27 2023 +0200
+
+    Merge pull request #4 from locovoi2/xavi
+    
+    Sign Up actualizado y Sign In (con el logo)
+
+[33mcommit d6bc78b879fbdf396204344b854ed10bdccf8b21[m
+Author: Xavi <xavega@live.com>
+Date:   Sun Apr 23 00:52:58 2023 +0200
+
+    Sign Up actualizado y Sign In (con el logo)
+
+[33mcommit a132a0c173e0f8fe37bd4048e221f30c0f2f121f[m
+Author: Xavi <xavega@live.com>
+Date:   Sat Apr 22 23:14:06 2023 +0200
+
+    Sign Up actualizado y Sign In
+
+[33mcommit bac4e1343686e4fd20cacacc989562167599d429[m
+Merge: 2eaf9b6 b6c2412
+Author: Xavier Vera de la Gala <57797041+Xavi888@users.noreply.github.com>
+Date:   Sat Apr 22 19:22:20 2023 +0200
+
+    Merge pull request #1 from locovoi2/oscar
+    
+    sign up hecho
+
+[33mcommit b6c241286d0c8808d638a3072bee11ba8312b11c[m
+Author: OscarRomeral <oscarromeral00@gmail.com>
+Date:   Fri Apr 21 17:58:59 2023 +0200
+
+    sign up hecho
+
+[33mcommit 2eaf9b64a4039ab29f6cb51875573424e7089f31[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Thu Apr 13 10:58:14 2023 +0200
+
+    Google services
+
+[33mcommit 24d3ad80df34f92b278941817a03662319233d2d[m
+Author: Damian Baldovino <dami_1@outlook.com>
+Date:   Thu Apr 13 10:46:11 2023 +0200
+
+    Initial commit

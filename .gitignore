@@ -1,39 +1,39 @@
-# Compiled class file
-*.class
+# Archivos y carpetas específicas de Android Studio
+.gradle/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea/modules.xml
+/.idea/navEditor.xml
+/.idea/vcs.xml
+/.idea/assetWizardSettings.xml
+/.idea/dictionaries
+/.idea/misc.xml
+/.idea/modules
+/.idea/runConfigurations.xml
 
-# Log file
-*.log
+# Archivos de construcción de Gradle
+/.gradle/
+/build/
+/app/build/
+/captures/
+/output.json
 
-# BlueJ files
-*.ctxt
+# Archivos de configuración de Android
+/com_android_support_animated_vector_drawable/
+/com_android_support_support_compat/
+/com_android_support_support_core_ui/
+/com_android_support_support_core_utils/
+/com_android_support_support_fragment/
+/com_android_support_support_media_compat/
+/com_android_support_support_transition/
+/com_android_support_support_v4/
+/com_android_support_support_vector_drawable/
+/fabric.properties
+/gradle.properties
+/gradlew
+/gradlew.bat
+/AndroidDependencies.txt
+/dependencies.txt
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
-
-.gradle/7.5/checksums/checksums.lock
-.gradle/7.5/executionHistory/executionHistory.lock
-.gradle/7.5/fileHashes/fileHashes.bin
-.gradle/7.5/fileHashes/fileHashes.lock
-.gradle/buildOutputCleanup/buildOutputCleanup.lock
-.gradle/buildOutputCleanup/outputFiles.bin
-.idea/gradle.xml
-local.properties
-.gradle/7.5/checksums/md5-checksums.bin
-.gradle/7.5/checksums/sha1-checksums.bin
-.gradle/7.5/executionHistory/executionHistory.bin
-.gradle/7.5/fileHashes/resourceHashesCache.bin
-.gradle/file-system.probe
 
