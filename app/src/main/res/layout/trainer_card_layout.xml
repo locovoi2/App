@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="TrainerName"
             android:textStyle="bold"
-            android:textSize="40sp"
+            android:textSize="35sp"
             android:layout_toEndOf="@+id/foto_trainer"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp" />
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TrainerMail"
-            android:textSize="32sp"
+            android:textSize="20sp"
             android:layout_toEndOf="@+id/foto_trainer"
             android:layout_below="@+id/trainer_name"
             android:layout_marginStart="20dp"
