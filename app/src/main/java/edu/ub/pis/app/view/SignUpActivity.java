@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.List;
+import java.util.Random;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.UserRepository;
@@ -40,6 +41,9 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
+    private EditText editTextContactPhoneNumber;
+    private EditText editTextPrice;
+    private EditText editTextDescription;
     private CheckBox checkBoxTrainer;
     private Button buttonContinue;
     private UserRepository mRepository;
@@ -60,6 +64,9 @@ public class SignUpActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         checkBoxTrainer = findViewById(R.id.checkBoxTrainer);
+        editTextContactPhoneNumber = findViewById(R.id.editTextContactPhoneNumber);
+        editTextPrice = findViewById(R.id.editTextPrice);
+        editTextDescription = findViewById(R.id.editTextDescription);
         TextView textViewSignIn = findViewById(R.id.textViewSignIn);
 
         SpannableString spannableString = new SpannableString("Have an account? Sign In");
@@ -82,12 +89,13 @@ public class SignUpActivity extends AppCompatActivity {
         buttonContinue = (Button) findViewById(R.id.buttonContinue);
         buttonContinue.setOnClickListener(view -> {
             signUp(editTextName.getText().toString(), editTextSurname.getText().toString(), editTextEmail.getText().toString(), editTextPassword.getText().toString(),
-                    editTextConfirmPassword.getText().toString(), checkBoxTrainer.isChecked());
+                    editTextConfirmPassword.getText().toString(), checkBoxTrainer.isChecked(), editTextDescription.getText().toString(), editTextPrice.getText().toString(),
+                    editTextContactPhoneNumber.getText().toString());
         });
     }
 
-    protected void signUp(String name, String surname, String email, String password, String confirmPassword, boolean trainer) {
-        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+    protected void signUp(String name, String surname, String email, String password, String confirmPassword, boolean trainer, String description, String price, String contactPhoneNumber) {
+        if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() || description.isEmpty() || price.isEmpty() || contactPhoneNumber.isEmpty()) {
             Toast.makeText(SignUpActivity.this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confirmPassword)) {
             // Mostrar un diálogo de alerta con el mensaje de error
@@ -116,6 +124,16 @@ public class SignUpActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Este correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // El usuario no está registrado
+                                    int userCode;
+                                    if(trainer){
+                                        userCode = 0;
+                                    }
+                                    else{
+                                        Random random = new Random();
+                                        userCode = random.nextInt(900000) + 100000; //Genera un número aleatorio entre 100000 y 999999
+
+                                    }
+                                    boolean userPremium = false;
                                     mAuth.createUserWithEmailAndPassword(email, password)
                                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                                 @Override
@@ -125,12 +143,18 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 name,
                                                                 surname,
                                                                 email,
-                                                                checkBoxTrainer.isChecked()
+                                                                checkBoxTrainer.isChecked(),
+                                                                price,
+                                                                contactPhoneNumber,
+                                                                userCode,
+                                                                description,
+                                                                userPremium
                                                         );
                                                         Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                                                         String Name_surname = name + " " + surname;
                                                         intent.putExtra("USER_MAIL", email);
                                                         intent.putExtra("USER_NAME", Name_surname);
+                                                        intent.putExtra("USER_PREMIUM", userPremium);
                                                         startActivity(intent);
                                                     } else {
                                                         Toast.makeText(getApplicationContext(), "Ha ocurrido un error al registrar al usuario", Toast.LENGTH_SHORT).show();

@@ -96,12 +96,28 @@ public class UserRepository {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                int usCode;
+                                if(document.getLong("user_code") != null) {
+                                    usCode = document.getLong("user_code").intValue();
+                                }
+                                else usCode = 0;
+
+                                boolean usPremium;
+                                if(document.getBoolean("user_premium") != null) {
+                                    usPremium = document.getBoolean("user_premium");
+                                }
+                                else usPremium = false;
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 User user = new User(
                                         document.toString(), // ID = Email
                                         document.getString("name"),
                                         document.getString("surname"),
-                                        document.getBoolean("trainer")
+                                        document.getBoolean("trainer"),
+                                        document.getString("description"),
+                                        document.getString("price"),
+                                        usCode,
+                                        document.getString("contact_phone_number"),
+                                        usPremium
                                 );
                                 users.add(user);
                             }
@@ -148,18 +164,33 @@ public class UserRepository {
      * @param name
      * @param surname
      * @param trainer
+     * @param price
+     * @param contactPhoneNumber
+     * @param userCode
+     * @param description
+     * @param userPremium
      */
     public void addUser(
             String name,
             String surname,
             String email,
-            boolean trainer
+            boolean trainer,
+            String price,
+            String contactPhoneNumber,
+            int userCode,
+            String description,
+            boolean userPremium
     ) {
         // Obtenir informació personal de l'usuari
         Map<String, Object> signedUpUser = new HashMap<>();
         signedUpUser.put("name", name);
         signedUpUser.put("surname", surname);
         signedUpUser.put("trainer", trainer);
+        signedUpUser.put("price", price);
+        signedUpUser.put("contact_phone_number", contactPhoneNumber);
+        signedUpUser.put("user_code", userCode);
+        signedUpUser.put("description", description);
+        signedUpUser.put("user_premium", userPremium);
 
         // Afegir-la a la base de dades
         mDb.collection("users").document(email).set(signedUpUser)

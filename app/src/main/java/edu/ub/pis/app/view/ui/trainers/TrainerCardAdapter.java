@@ -100,20 +100,26 @@ public class TrainerCardAdapter extends RecyclerView.Adapter<edu.ub.pis.app.view
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTrainerName;
-        //private final TextView mTrainerMail;
         //private final ImageView mTrainerPicture;
+        private final TextView mTrainerMail;
         private final ImageView mInfoPicture;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mTrainerName = itemView.findViewById(R.id.trainer_name);
-            //mTrainerMail = itemView.findViewById(R.id.trainer_mail);
-            //mTrainerPicture = itemView.findViewById(R.id.foto_trainer);
+            mTrainerMail = itemView.findViewById(R.id.trainer_mail);
             mInfoPicture = itemView.findViewById(R.id.info_icon);
         }
 
         public void bind(final User trainer, edu.ub.pis.app.view.ui.trainers.TrainerCardAdapter.OnClickInfoListener Infolistener, Context context) {
             mTrainerName.setText(trainer.getName());
+            String documentSnapshotKey = trainer.getId();
+            String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
+            String email_aux = parts[1];
+            String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+            String email = parts2[0];
+            mTrainerMail.setText(email);
+
             // Seteja el listener onClick del botó d'amagar (hide), que alhora
             // cridi el mètode OnClickHide que implementen els nostres propis
             // listeners de tipus OnClickHideListener.
@@ -124,17 +130,25 @@ public class TrainerCardAdapter extends RecyclerView.Adapter<edu.ub.pis.app.view
                     View popupView = LayoutInflater.from(context).inflate(R.layout.popup_info_trainers_layout, null);
 
                     // Obtener referencias a los elementos del layout del popup
-                    TextView emailTextView = popupView.findViewById(R.id.popup_name_text);
+                    TextView emailTextView = popupView.findViewById(R.id.popup_email_text);
+                    TextView nameTextView = popupView.findViewById(R.id.popup_name_text);
                     TextView phoneTextView = popupView.findViewById(R.id.popup_phone_text);
                     TextView experienceTextView = popupView.findViewById(R.id.popup_experience_text);
-                    //TextView priceTextView = popupView.findViewById(R.id.priceTextView);
+                    TextView priceTextView = popupView.findViewById(R.id.popup_experience_text);
                     //Button closeButton = popupView.findViewById(R.id.popup_close_button);
 
                     // Mostrar la información del entrenador en los elementos del layout del popup
-                    emailTextView.setText(trainer.getSurname());
-                    //phoneTextView.setText(trainer.getPhone());
-                    //experienceTextView.setText(trainer.getExperience());
-                    //priceTextView.setText(String.format("%.2f €", trainer.getPrice()));
+                    String documentSnapshotKey = trainer.getId();
+                    String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
+                    String email_aux = parts[1];
+                    String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+                    String email = parts2[0];
+                    mTrainerMail.setText(email);
+                    emailTextView.setText(email);
+                    nameTextView.setText(trainer.getName());
+                    phoneTextView.setText(trainer.getContactPhoneNumber());
+                    experienceTextView.setText(trainer.getDescription());
+                    priceTextView.setText(trainer.getPrice());
 
                     // Crear un AlertDialog que muestre el layout inflado
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
