@@ -106,10 +106,12 @@ public class SignInActivity extends AppCompatActivity {
                                                 // Obtén el valor del campo "nombre"
                                                 String name = document.getString("name");
                                                 String surname = document.getString("surname");
+                                                boolean premium = document.getBoolean("userPremium");
                                                 String Name_surname = name + " " + surname;
                                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                                                 intent.putExtra("USER_MAIL", email);
                                                 intent.putExtra("USER_NAME", Name_surname);
+                                                intent.putExtra("USER_PREMIUM", premium);
                                                 startActivity(intent);
                                             } else {
                                                 // Log.d("MiActividad", "No se encontró el documento");

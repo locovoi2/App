@@ -58,6 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         if (intent != null) {
             String mUserMail = (String) intent.getStringExtra("USER_MAIL");
             String mUserName = (String) intent.getStringExtra("USER_NAME");
+            boolean mUserPremium = (boolean) intent.getBooleanExtra("USER_PREMIUM", false);
             TextView userMailTextView = headerView.findViewById(R.id.uMail);
             TextView userNameTextView = headerView.findViewById(R.id.uName_surname);
             userMailTextView.setText(mUserMail);
