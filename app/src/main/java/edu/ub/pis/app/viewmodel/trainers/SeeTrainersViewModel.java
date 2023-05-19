@@ -71,7 +71,4 @@ public class SeeTrainersViewModel extends AndroidViewModel {
     public void loadUsersFromRepository() {
         mUserRepository.loadUsers(mUsers.getValue());
     }
-
-
-
 }

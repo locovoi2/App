@@ -1,10 +1,12 @@
 package edu.ub.pis.app.model;
 
 
+import java.io.Serializable;
+
 /**
  * Classe contenidor de la informació de l'usuari.
  */
-public class User {
+public class User implements Serializable {
     private String mId;
     private String mName;
     private String mSurname;
