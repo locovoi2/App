@@ -22,7 +22,16 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/activity_main_drawer"
-        app:itemTextColor="#2F4D5B"
-        app:itemIconTint="#2F4D5B"
-        android:background="#DFEDD6"/>
+        app:itemTextColor="@color/blue_gray"
+        app:itemIconTint="@color/blue_gray"
+        android:background="@color/light_green" >
+
+        <include
+            layout="@layout/logout_vip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"/>
+
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

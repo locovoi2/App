@@ -6,18 +6,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.PopupMenu;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,25 +26,32 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.ActivityHomeBinding;
+import edu.ub.pis.app.viewmodel.HomeActivityViewModel;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
-
+    private HomeActivityViewModel mHomeActivityViewModel;
+    private AppBarConfiguration mAppBarConfiguration;
+    private FirebaseAuth mAuth;
+    private Button mButtonVip;
+    private Button mButtonLogout;
+    private TextView mTextViewVip;
     private boolean doubleBackToExitPressedOnce = false;
-
     private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Inicialitzem ViewModel
+        mHomeActivityViewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
+
+        //Carreguem l'usuari
+        mHomeActivityViewModel.loadUserFromRepository();
+
+        mAuth = FirebaseAuth.getInstance();
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -53,6 +61,10 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+        mButtonVip = navigationView.findViewById(R.id.buttonVip);
+        mButtonLogout = navigationView.findViewById(R.id.buttonLogout);
+
+        //Seteamos el nombre y mail y si es vip del usuario
         View headerView = navigationView.getHeaderView(0);
         Intent intent = getIntent();
         if (intent != null) {
@@ -61,8 +73,11 @@ public class HomeActivity extends AppCompatActivity {
             boolean mUserPremium = (boolean) intent.getBooleanExtra("USER_PREMIUM", false);
             TextView userMailTextView = headerView.findViewById(R.id.uMail);
             TextView userNameTextView = headerView.findViewById(R.id.uName_surname);
+            mTextViewVip = headerView.findViewById(R.id.textViewVip);
             userMailTextView.setText(mUserMail);
             userNameTextView.setText(mUserName);
+            if(mUserPremium) { mTextViewVip.setText("VIP"); }
+            else { mTextViewVip.setText(""); }
         }
 
         // Passing each menu ID as a set of Ids because each
@@ -74,6 +89,33 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if(id == R.id.nav_trainers) {
+                if(!mHomeActivityViewModel.getPremium()) {
+                    Toast.makeText(HomeActivity.this, "Hazte premium", Toast.LENGTH_SHORT).show();
+                } else {
+                    navController.navigate(id);
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+            } else {
+                navController.navigate(id);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+
+            return true;
+        });
+
+        mButtonLogout.setOnClickListener(view -> {
+            mAuth.signOut();
+            finish();
+        });
+
+        mButtonVip.setOnClickListener(view -> {
+            setPremium();
+        });
     }
 
     @Override
@@ -118,4 +160,14 @@ public class HomeActivity extends AppCompatActivity {
             doubleBackToExitPressedOnce = false;
         }
     };
+
+    private void setPremium() {
+        if(mHomeActivityViewModel.getPremium()) {
+            mHomeActivityViewModel.updatePremium(false);
+            mTextViewVip.setText("");
+        } else {
+            mHomeActivityViewModel.updatePremium(true);
+            mTextViewVip.setText("VIP");
+        }
+    }
 }
