@@ -106,7 +106,7 @@ public class SeeTrainersFragment extends Fragment {
             }
         });
 
-// A partir d'aquí, en cas que es faci cap canvi a la llista d'usuaris, HomeActivity ho sabrá
+    // A partir d'aquí, en cas que es faci cap canvi a la llista d'usuaris, HomeActivity ho sabrá
         mSeeTrainersViewModel.loadUsersFromRepository();
 
     }

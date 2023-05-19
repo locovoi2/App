@@ -36,7 +36,13 @@ public class UserRepository {
         void onLoadUsers(ArrayList<User> users);
     }
 
+    public interface OnLoadUserListener {
+        void onLoadUser(User users);
+    }
+
     public ArrayList<OnLoadUsersListener> mOnLoadUsersListeners = new ArrayList<>();
+
+    public ArrayList<OnLoadUserListener> mOnLoadUserListeners = new ArrayList<>();
 
     /** Definició de listener (interficie)
      * per poder escoltar quan s'hagi acabat de llegir la Url de la foto de perfil
@@ -71,6 +77,10 @@ public class UserRepository {
      */
     public void addOnLoadUsersListener(OnLoadUsersListener listener) {
         mOnLoadUsersListeners.add(listener);
+    }
+
+    public void addOnLoadUserListener(OnLoadUserListener listener) {
+        mOnLoadUserListeners.add(listener);
     }
 
     /**
@@ -124,6 +134,55 @@ public class UserRepository {
                             /* Callback listeners */
                             for (OnLoadUsersListener l: mOnLoadUsersListeners) {
                                 l.onLoadUsers(users);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Mètode que llegeix un unic usuari. Vindrà cridat des de fora i quan acabi,
+     * avisarà sempre als listeners, invocant el seu OnLoadUser.
+     */
+    public void loadUser(String email){
+        mDb.collection("users")
+                .document(email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            System.out.println(document);
+                            int usCode;
+                            if(document.getLong("user_code") != null) {
+                                usCode = document.getLong("user_code").intValue();
+                            }
+                            else usCode = 0;
+
+                            boolean usPremium;
+                            if(document.getBoolean("user_premium") != null) {
+                                usPremium = document.getBoolean("user_premium");
+                            }
+                            else usPremium = false;
+
+                            Log.d(TAG, document.getId() + " => " + document.getData());
+                            User user = new User(
+                                    document.toString(), // ID = Email
+                                    document.getString("name"),
+                                    document.getString("surname"),
+                                    document.getBoolean("trainer"),
+                                    document.getString("description"),
+                                    document.getString("price"),
+                                    usCode,
+                                    document.getString("contact_phone_number"),
+                                    usPremium
+                            );
+                            /* Callback listeners */
+                            for (OnLoadUserListener l: mOnLoadUserListeners) {
+                                l.onLoadUser(user);
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -194,6 +253,33 @@ public class UserRepository {
 
         // Afegir-la a la base de dades
         mDb.collection("users").document(email).set(signedUpUser)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Sign up completion succeeded");
+                        } else {
+                            Log.d(TAG, "Sign up completion failed");
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Actualiza si el user es premium o no, sera usado para implementar el boton de vip
+     * @param email
+     * @param userPremium
+     */
+    public void UpdatePremiumUser(
+            String email,
+            boolean userPremium
+    ) {
+        // Obtenir informació personal de l'usuari
+        Map<String, Object> actualizar = new HashMap<>();
+        actualizar.put("user_premium", userPremium);
+
+        // Afegir-la a la base de dades
+        mDb.collection("users").document(email).update(actualizar)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

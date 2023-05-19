@@ -1,11 +1,9 @@
 package edu.ub.pis.app.view;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -23,18 +21,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
-
 import edu.ub.pis.app.R;
-import edu.ub.pis.app.model.UserRepository;
 
 public class SignInActivity extends AppCompatActivity {
     private final String TAG = "SignInActivity";
@@ -106,7 +99,7 @@ public class SignInActivity extends AppCompatActivity {
                                                 // Obtén el valor del campo "nombre"
                                                 String name = document.getString("name");
                                                 String surname = document.getString("surname");
-                                                boolean premium = document.getBoolean("userPremium");
+                                                boolean premium = document.getBoolean("user_premium");
                                                 String Name_surname = name + " " + surname;
                                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                                                 intent.putExtra("USER_MAIL", email);
@@ -114,10 +107,10 @@ public class SignInActivity extends AppCompatActivity {
                                                 intent.putExtra("USER_PREMIUM", premium);
                                                 startActivity(intent);
                                             } else {
-                                                // Log.d("MiActividad", "No se encontró el documento");
+                                                Log.d("MiActividad", "No se encontró el documento");
                                             }
                                         } else {
-                                            // Log.d("MiActividad", "Error al obtener el documento", task.getException());
+                                            Log.d("MiActividad", "Error al obtener el documento", task.getException());
                                         }
                                     }
                                 });
