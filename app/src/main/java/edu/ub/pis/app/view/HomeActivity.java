@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -47,6 +48,9 @@ public class HomeActivity extends AppCompatActivity {
         //Inicialitzem ViewModel
         mHomeActivityViewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
 
+        //Carreguem l'usuari
+        mHomeActivityViewModel.loadUserFromRepository();
+
         mAuth = FirebaseAuth.getInstance();
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
@@ -60,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         mButtonVip = navigationView.findViewById(R.id.buttonVip);
         mButtonLogout = navigationView.findViewById(R.id.buttonLogout);
 
+        //Seteamos el nombre y mail y si es vip del usuario
         View headerView = navigationView.getHeaderView(0);
         Intent intent = getIntent();
         if (intent != null) {
@@ -85,13 +90,28 @@ public class HomeActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+            if(id == R.id.nav_trainers) {
+                if(!mHomeActivityViewModel.getPremium()) {
+                    Toast.makeText(HomeActivity.this, "Hazte premium", Toast.LENGTH_SHORT).show();
+                } else {
+                    navController.navigate(id);
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+            } else {
+                navController.navigate(id);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+
+            return true;
+        });
+
         mButtonLogout.setOnClickListener(view -> {
             mAuth.signOut();
             finish();
         });
-
-        //Carreguem l'usuari
-        mHomeActivityViewModel.loadUserFromRepository();
 
         mButtonVip.setOnClickListener(view -> {
             setPremium();
