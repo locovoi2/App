@@ -13,7 +13,7 @@
 
         <!-- Media -->
         <ImageView
-            android:id="@+id/avatar"
+            android:id="@+id/avatarIcon"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginStart="10dp"
@@ -30,7 +30,7 @@
         <!-- Title, secondary and supporting text -->
 
         <TextView
-            android:id="@+id/routinename"
+            android:id="@+id/exercicename"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
@@ -38,7 +38,7 @@
             android:text="Routine Name"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
+            app:layout_constraintStart_toEndOf="@+id/avatarIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -50,10 +50,10 @@
             android:text="email@pis.com"
             android:textAppearance="?attr/textAppearanceBody2"
             android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/avatarIcon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/routinename"
-            app:layout_constraintTop_toBottomOf="@+id/routinename" />
+            app:layout_constraintStart_toStartOf="@+id/exercicename"
+            app:layout_constraintTop_toBottomOf="@+id/exercicename" />
 
         <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
         <!--        <LinearLayout-->
