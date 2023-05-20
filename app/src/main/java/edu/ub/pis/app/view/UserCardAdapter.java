@@ -39,11 +39,13 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
     private  OnClickPictureListener mOnClickPictureListener;
 
     private static Context context;
+    private static int day;
 
     // Constructor
-    public UserCardAdapter(ArrayList<Routine> userList, Context context) {
-        this.mRoutines = userList; // no fa new (La llista la manté el ViewModel)
+    public UserCardAdapter(ArrayList<Routine> userList, Context context, int day) {
+        this.mRoutines = userList;
         this.context = context;
+        this.day = day;
     }
 
     public void setOnClickHideListener(OnClickHideListener listener) {
@@ -119,8 +121,8 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCardImageView = itemView.findViewById(R.id.avatar);
-            mCardRoutineName = itemView.findViewById(R.id.routinename);
+            mCardImageView = itemView.findViewById(R.id.avatarIcon);
+            mCardRoutineName = itemView.findViewById(R.id.exercicename);
             mCardExercises = itemView.findViewById(R.id.completedexercises);
         }
 
@@ -129,7 +131,7 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
             int nComplete = 0;
             int nTotal = 0;
             for(Exercise ex : routine.getExercises()) {
-                if(ex.getCompleted()) {
+                if(ex.getCompleted().get(day)) {
                     nComplete++;
                 }
                 nTotal++;

@@ -1,6 +1,7 @@
 package edu.ub.pis.app.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Classe contenidor de la informacio d'un exercici
@@ -10,7 +11,7 @@ public class Exercise implements Serializable {
     private String series;
     private String reps;
     private String weight;
-    private boolean completed;
+    private ArrayList<Boolean> completed;
 
     //Constructors
     public Exercise() {}
@@ -20,10 +21,13 @@ public class Exercise implements Serializable {
         this.series = series;
         this.reps = reps;
         this.weight = weight;
-        this.completed = false;
+        this.completed = new ArrayList<Boolean>();
+        for(int i = 0; i < 7; i++) {
+            completed.add(false);
+        }
     }
 
-    public Exercise(String name, String series, String reps, String weight, boolean completed) {
+    public Exercise(String name, String series, String reps, String weight, ArrayList<Boolean> completed) {
         this.name = name;
         this.series = series;
         this.reps = reps;
@@ -64,11 +68,11 @@ public class Exercise implements Serializable {
         this.weight = weight;
     }
 
-    public boolean getCompleted() {
+    public ArrayList<Boolean> getCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(ArrayList<Boolean> completed) {
         this.completed = completed;
     }
 }
