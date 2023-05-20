@@ -94,7 +94,7 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
                             for(Exercise exercise : exercises) {
                                 if(exercise.getName().equals(cardData.getName())) {
                                     exercise.setCompleted(completedDays);
-                                    document.getReference().update("exercices", exercises)
+                                    document.getReference().update("exercises", exercises)
                                             .addOnSuccessListener(aVoid -> {
                                                 // Successfully updated the Firestore document
                                             })
