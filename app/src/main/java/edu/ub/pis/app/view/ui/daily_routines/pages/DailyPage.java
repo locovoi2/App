@@ -56,6 +56,7 @@ public class DailyPage extends Fragment {
         binding = FragmentDailyRoutinesBinding.inflate(inflater, container, false);
 
         Context currentContext = getContext();
+        DailyPage thisPage = this;
 
         dayTitle = rootView.findViewById(R.id.dayTitle);
         if(day != -1)
@@ -65,7 +66,7 @@ public class DailyPage extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DailyRoutineCardAdapter popupAdapter = new DailyRoutineCardAdapter(totalRoutines, day);
+                DailyRoutineCardAdapter popupAdapter = new DailyRoutineCardAdapter(totalRoutines, day, mUserCardRVAdapter, thisPage);
                 showPopupMenu(inflater, currentContext, rootView, popupAdapter);
             }
         });
@@ -93,7 +94,7 @@ public class DailyPage extends Fragment {
                         break;
                     }
                 }
-                ExerciceCompletedCardAdapter popupAdapter = new ExerciceCompletedCardAdapter(exercises, currentContext, day, routineName);
+                ExerciceCompletedCardAdapter popupAdapter = new ExerciceCompletedCardAdapter(exercises, currentContext, day, routineName, mUserCardRVAdapter, thisPage);
                 showPopupMenu(inflater, currentContext, rootView, popupAdapter);
             }
         });
@@ -139,12 +140,12 @@ public class DailyPage extends Fragment {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                rootView.setBackground(null); // Remove the shadow drawable from the background
+                rootView.getOverlay().remove(shadowDrawable); // Remove the shadow drawable from the background
             }
         });
 
         popupWindow.showAtLocation(((Activity) currentContext).getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-        rootView.setBackground(shadowDrawable);
+        rootView.getOverlay().add(shadowDrawable);
     }
 
 

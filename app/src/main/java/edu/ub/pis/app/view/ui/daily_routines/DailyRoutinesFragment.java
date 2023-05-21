@@ -101,6 +101,7 @@ public class DailyRoutinesFragment extends Fragment {
                                 String series = (String) exercise.get("series");
                                 String reps = (String) exercise.get("reps");
                                 ArrayList<Boolean> completed = (ArrayList<Boolean>) exercise.get("completed");
+                                //Log.println(Log.ASSERT, name,""+completed.size());
                                 /*
                                 Toast toast = Toast.makeText(getApplicationContext(), reps, Toast.LENGTH_SHORT);
                                 toast.show();*/
