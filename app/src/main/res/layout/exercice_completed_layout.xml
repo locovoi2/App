@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,10 +25,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-        <!-- Title, secondary and supporting text -->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/exercicename"
@@ -35,43 +33,22 @@
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:gravity="center"
-            android:text="Routine Name"
+            android:text="Exercice Name"
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/avatarIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/completedexercises"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="email@pis.com"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarIcon"
+        <CheckBox
+            android:id="@+id/completedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/exercicename"
+            app:layout_constraintStart_toEndOf="@+id/avatarIcon"
             app:layout_constraintTop_toBottomOf="@+id/exercicename" />
-
-        <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="376dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="8dp"-->
-        <!--            android:gravity="center"-->
-        <!--            android:orientation="horizontal">-->
-
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                style="?attr/borderlessButtonStyle"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center|center_horizontal"-->
-        <!--                android:gravity="center"-->
-        <!--                android:text="SETEA UN CLICK LISTENER EN TU ADAPTER" />-->
-
-        <!--        </LinearLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

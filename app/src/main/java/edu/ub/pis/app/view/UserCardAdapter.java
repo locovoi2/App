@@ -1,6 +1,7 @@
 package edu.ub.pis.app.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,11 +40,13 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
     private  OnClickPictureListener mOnClickPictureListener;
 
     private static Context context;
+    private int day;
 
     // Constructor
-    public UserCardAdapter(ArrayList<Routine> userList, Context context) {
-        this.mRoutines = userList; // no fa new (La llista la manté el ViewModel)
+    public UserCardAdapter(ArrayList<Routine> userList, Context context, int day) {
+        this.mRoutines = userList;
         this.context = context;
+        this.day = day;
     }
 
     public void setOnClickHideListener(OnClickHideListener listener) {
@@ -72,7 +75,17 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
         // El ViewHolder té el mètode que s'encarrega de llegir els atributs del User (1r parametre),
         // i assignar-los a les variables del ViewHolder.
         // Qualsevol listener que volguem posar a un item, ha d'entrar com a paràmetre extra (2n).
-        holder.bind(mRoutines.get(position), this.mOnClickHideListener, this.mOnClickPictureListener);
+        int nComplete = 0;
+        int nTotal = 0;
+        for(Exercise ex : mRoutines.get(position).getExercises()) {
+            Log.println(Log.ASSERT, "Sunday "+day, ""+ex.getCompleted().get(day));
+            if(ex.getCompleted().get(day)) {
+                nComplete++;
+            }
+            nTotal++;
+        }
+
+        holder.bind(mRoutines.get(position), this.mOnClickHideListener, this.mOnClickPictureListener, nComplete, nTotal);
     }
 
     /**
@@ -92,12 +105,17 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
         this.mRoutines = users; // no recicla/repinta res
     }
 
+    public ArrayList<Routine> getUsers() {
+        return this.mRoutines;
+    }
+
     /**
      * Mètode que repinta la RecyclerView sencera.
      */
     public void updateUsers() {
         notifyDataSetChanged();
     }
+
 
     /**
      * Mètode que repinta només posició indicada
@@ -119,21 +137,14 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCardImageView = itemView.findViewById(R.id.avatar);
-            mCardRoutineName = itemView.findViewById(R.id.routinename);
+            mCardImageView = itemView.findViewById(R.id.avatarIcon);
+            mCardRoutineName = itemView.findViewById(R.id.exercicename);
             mCardExercises = itemView.findViewById(R.id.completedexercises);
         }
 
-        public void bind(final Routine routine, OnClickHideListener listener, OnClickPictureListener listener2) {
+        public void bind(final Routine routine, OnClickHideListener listener, OnClickPictureListener listener2, int nComplete, int nTotal) {
             mCardRoutineName.setText(routine.getName());
-            int nComplete = 0;
-            int nTotal = 0;
-            for(Exercise ex : routine.getExercises()) {
-                if(ex.getCompleted()) {
-                    nComplete++;
-                }
-                nTotal++;
-            }
+
             mCardExercises.setText("Completed exercices: " + nComplete + "/" + nTotal);
             // Carrega foto de l'usuari de la llista directament des d'una Url
             // d'Internet.
