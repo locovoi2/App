@@ -30,6 +30,8 @@ import java.util.Map;
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.Exercise;
 import edu.ub.pis.app.model.Routine;
+import edu.ub.pis.app.view.UserCardAdapter;
+import edu.ub.pis.app.view.ui.daily_routines.pages.DailyPage;
 
 public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceCompletedCardAdapter.ViewHolder> {
 
@@ -37,12 +39,16 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
     private int day;
     private Context context;
     private String routineName;
+    private UserCardAdapter recycleCardAdapter;
+    private DailyPage parent;
 
-    public ExerciceCompletedCardAdapter(ArrayList<Exercise> cardItems, Context context, int day, String routineName) {
+    public ExerciceCompletedCardAdapter(ArrayList<Exercise> cardItems, Context context, int day, String routineName, UserCardAdapter recycleCardAdapter, DailyPage parent) {
         this.cardItems = cardItems;
         this.context = context;
         this.day = day;
         this.routineName = routineName;
+        this.recycleCardAdapter = recycleCardAdapter;
+        this.parent = parent;
     }
 
     @NonNull
@@ -86,17 +92,32 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
 
                     for (QueryDocumentSnapshot document : totalRoutines) {
 
-                        String routineName = document.getId();
+                        String routineNameCurrent = document.getId();
 
-                        if (routineName.equals(routineName)) {
-                            ArrayList<Exercise> exercises = document.toObject(Routine.class).getExercises();
-
+                        if (routineName.equals(routineNameCurrent)) {
+                            Routine routineToChange =  document.toObject(Routine.class);
+                            ArrayList<Exercise> exercises = routineToChange.getExercises();
                             for(Exercise exercise : exercises) {
                                 if(exercise.getName().equals(cardData.getName())) {
                                     exercise.setCompleted(completedDays);
                                     document.getReference().update("exercises", exercises)
                                             .addOnSuccessListener(aVoid -> {
                                                 // Successfully updated the Firestore document
+                                                ArrayList<Routine> newRoutines = new ArrayList<>();
+                                                for(Routine r : recycleCardAdapter.getUsers()) {
+                                                    if(r.getName().equals(routineName)) {
+                                                        ArrayList<Exercise> newExercises = new ArrayList<>();
+                                                        for(Exercise e : r.getExercises()) {
+                                                            if(e.getName().equals(exercise.getName())) {
+                                                                e.setCompleted(completedDays);
+                                                            }
+                                                            newExercises.add(e);
+                                                        }
+                                                        r.setExercises(newExercises);
+                                                    }
+                                                    newRoutines.add(r);
+                                                }
+                                                parent.updateRoutines(newRoutines);
                                             })
                                             .addOnFailureListener(e -> {
                                                 // Handle the failure to update the Firestore document

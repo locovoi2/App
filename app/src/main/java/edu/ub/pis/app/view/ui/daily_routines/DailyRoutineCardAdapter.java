@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,21 +22,29 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.Routine;
+import edu.ub.pis.app.view.UserCardAdapter;
+import edu.ub.pis.app.view.ui.daily_routines.pages.DailyPage;
 
 public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCardAdapter.ViewHolder> {
 
     private ArrayList<Routine> dataSet;
     private int day;
+    private UserCardAdapter userCardAdapter;
+    private DailyPage parent;
 
-    public DailyRoutineCardAdapter(ArrayList<Routine> dataSet, int day) {
+    public DailyRoutineCardAdapter(ArrayList<Routine> dataSet, int day, UserCardAdapter userCardAdapter, DailyPage parent) {
         this.dataSet = dataSet;
         this.day = day;
+        this.userCardAdapter = userCardAdapter;
+        this.parent = parent;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -103,9 +112,20 @@ public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCa
 
                         if (routineName.equals(cardData.getName())) {
                             ArrayList<Boolean> days = (ArrayList<Boolean>) document.get("days");
+
+
+                            //Log.println(Log.ASSERT, updatedRoutine.getName(), ""+updatedRoutine.getExercises().get(0).getName());
                             Log.println(Log.ASSERT, ""+position, ""+isToday);
                             days.set(position, isToday);
                             // Update here
+                            ArrayList<Routine> totalNewRoutines = new ArrayList<>();
+                            for (Routine r : dataSet) {
+                                if(r.getName().equals(routineName)) {
+                                    r.setDay(days);
+                                }
+                                totalNewRoutines.add(r);
+                            }
+
                             Map<String, Object> updateData = new HashMap<>();
                             updateData.put("days", days);
 
@@ -114,7 +134,7 @@ public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCa
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            // Falta actualitzar al moment
+                                            parent.updateRoutines(totalNewRoutines);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

@@ -56,4 +56,8 @@ public class Routine {
         this.day.set(day, false);
     }
 
+    public void setDay(ArrayList<Boolean> day) {
+        this.day = day;
+    }
+
 }
