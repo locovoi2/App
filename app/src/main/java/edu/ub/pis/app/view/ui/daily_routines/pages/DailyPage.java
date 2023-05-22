@@ -4,26 +4,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
@@ -167,7 +161,7 @@ public class DailyPage extends Fragment {
     public void updateRoutines(ArrayList<Routine> routinesTotal) {
         ArrayList<Routine> dRoutines = new ArrayList<>();
         for(Routine routine : routinesTotal) {
-            if(routine.getDay().get(day)) {
+            if(routine.getDays().get(day)) {
                 dRoutines.add(routine);
             }
         }

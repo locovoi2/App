@@ -1,7 +1,6 @@
 package edu.ub.pis.app.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe contenidora de la informacio d'una rutina
@@ -9,22 +8,23 @@ import java.util.List;
 public class Routine {
     private String name;
     private ArrayList<Exercise> exercises;
-    private ArrayList<Boolean> day; // 0 - Dilluns, 1 - Dimarts, etc.
-                     // -1 - Indefinit
-
+    private ArrayList<Boolean> days;
     //Constructors
     public Routine() {}
 
     public Routine(String name, ArrayList<Exercise> exercises) {
         this.name = name;
         this.exercises = exercises;
-        this.day = new ArrayList<>();
+        this.days = new ArrayList<>();
+        for(int i = 0; i < 7; i++) {
+            this.days.add(false);
+        }
     }
 
-    public Routine(String name, ArrayList<Exercise> exercises, ArrayList<Boolean> day) {
+    public Routine(String name, ArrayList<Exercise> exercises, ArrayList<Boolean> days) {
         this.name = name;
         this.exercises = exercises;
-        this.day = day;
+        this.days = days;
     }
 
     //Getters i setters
@@ -44,20 +44,20 @@ public class Routine {
         this.exercises = exercises;
     }
 
-    public ArrayList<Boolean> getDay() {
-        return day;
+    public ArrayList<Boolean> getDays() {
+        return days;
     }
 
     public void addDay(int day) {
-        this.day.set(day, true);
+        this.days.set(day, true);
     }
 
     public void removeDay(int day) {
-        this.day.set(day, false);
+        this.days.set(day, false);
     }
 
     public void setDay(ArrayList<Boolean> day) {
-        this.day = day;
+        this.days = day;
     }
 
 }
