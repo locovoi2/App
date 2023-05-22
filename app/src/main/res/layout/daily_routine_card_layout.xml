@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -24,10 +25,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-        <!-- Title, secondary and supporting text -->
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/exercicename"
@@ -41,18 +39,23 @@
             app:layout_constraintStart_toEndOf="@+id/avatarIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/completedexercises"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="email@pis.com"
-            android:textAppearance="?attr/textAppearanceBody2"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/avatarIcon"
+        <Button
+            android:id="@+id/dailyRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove routine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/exercicename"
+            app:layout_constraintStart_toEndOf="@+id/avatarIcon"
+            app:layout_constraintTop_toBottomOf="@+id/dailyAdd" />
+
+        <Button
+            android:id="@+id/dailyAdd"
+            android:layout_width="164dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="2dp"
+            android:text="add routine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/avatarIcon"
             app:layout_constraintTop_toBottomOf="@+id/exercicename" />
 
         <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
