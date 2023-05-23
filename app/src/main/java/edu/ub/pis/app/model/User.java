@@ -18,6 +18,10 @@ public class User implements Serializable {
     private boolean mUserPremium;
 
     // Constructor
+    public User(){
+
+    }
+
     public User(
             String id,
             String name,
