@@ -13,12 +13,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -120,7 +127,7 @@ public class ReportsFragment extends Fragment {
                         PieDataSet pieDataSet = new PieDataSet(entries, "");
                         pieDataSet.setColors(new int[]{Color.LTGRAY, Color.DKGRAY}); // Customize colors if needed
                         pieDataSet.setValueTextSize(16f);
-                        pieDataSet.setValueTextColor(R.color.dark_green);
+                        pieDataSet.setValueTextColor(Color.parseColor("#629C44"));
 
                         PieData pieData = new PieData(pieDataSet);
 
@@ -130,8 +137,50 @@ public class ReportsFragment extends Fragment {
                         pieChart.setHoleColor(Color.TRANSPARENT);
 
                         pieChart.getDescription().setEnabled(false);
-                        Legend legend = pieChart.getLegend();
-                        legend.setTextSize(16f);
+
+                        Legend l = pieChart.getLegend();
+                        l.setEnabled(false);
+
+                        BarChart barChart = root.findViewById(R.id.barChart);
+
+                        // Sample data for the bar graph
+                        List<BarEntry> barEntries = new ArrayList<>();
+                        ArrayList<String> exerciseNames = new ArrayList<>();
+                        int x = 0;
+                        for(Routine r : routines) {
+                            if(r.getDays().get(currentDayOfWeekValue)) {
+                                for(Exercise e : r.getExercises()) {
+                                    barEntries.add(new BarEntry(x, Integer.parseInt(e.getWeight().replaceAll("[^0-9]", ""))));
+                                    exerciseNames.add(e.getName());
+                                    x++;
+                                }
+                            }
+                        }
+
+                        BarDataSet barDataSet = new BarDataSet(barEntries, "Exercise weight");
+                        barDataSet.setColor(Color.parseColor("#629C44")); // Customize color if needed
+                        barDataSet.setValueTextSize(16f);
+                        BarData barData = new BarData(barDataSet);
+
+                        barChart.setData(barData);
+                        barChart.invalidate(); // Refresh the chart
+
+                        // Customize the appearance of the chart
+                        barChart.getDescription().setEnabled(false); // Disable the chart description
+
+                        XAxis xAxis = barChart.getXAxis();
+                        xAxis.setDrawGridLines(false); // Hide vertical grid lines
+                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); // Position the X-axis at the bottom
+                        ExerciseValueFormatter formatter = new ExerciseValueFormatter();
+                        formatter.setExerciseNames(exerciseNames);
+                        xAxis.setValueFormatter(formatter);
+
+                        YAxis yAxis = barChart.getAxisLeft();
+                        yAxis.setAxisMinimum(0f); // Set the minimum value for the Y-axis
+
+                        // Hide the right Y-axis
+                        YAxis rightYAxis = barChart.getAxisRight();
+                        rightYAxis.setEnabled(false);
 
                     }
                 }
@@ -139,6 +188,20 @@ public class ReportsFragment extends Fragment {
         }
 
         return root;
+    }
+
+    private class ExerciseValueFormatter extends ValueFormatter {
+
+        private ArrayList<String> exerciseNames;
+        @Override
+        public String getFormattedValue(float value) {
+            // Custom labels for each bar
+            return  exerciseNames.get(Math.round(value));
+        }
+
+        public void setExerciseNames(ArrayList<String> exerciseNames) {
+            this.exerciseNames = exerciseNames;
+        }
     }
 
     @Override
