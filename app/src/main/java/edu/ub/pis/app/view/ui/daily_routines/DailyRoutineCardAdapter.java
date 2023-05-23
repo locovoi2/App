@@ -1,5 +1,6 @@
 package edu.ub.pis.app.view.ui.daily_routines;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.ub.pis.app.R;
+import edu.ub.pis.app.model.Exercise;
 import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.view.UserCardAdapter;
 import edu.ub.pis.app.view.ui.daily_routines.pages.DailyPage;
@@ -70,7 +72,7 @@ public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int p) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int p) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         Routine cardData = dataSet.get(p);
@@ -81,19 +83,30 @@ public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCa
         holder.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateFirestoreArray(userEmail, day, cardData, true);
+                updateFirestoreArray(userEmail, day, cardData, true, null);
             }
         });
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateFirestoreArray(userEmail, day, cardData, false);
+                ArrayList<Exercise> newExercises = new ArrayList<>();
+                for(Routine r : dataSet) {
+                    if(r.getName().equals(dataSet.get(p).getName())) {
+                        for(Exercise e : r.getExercises()) {
+                            ArrayList<Boolean> es = e.getCompleted();
+                            es.set(day,false);
+                            e.setCompleted(es);
+                            newExercises.add(e);
+                        }
+                    }
+                }
+                updateFirestoreArray(userEmail, day, cardData, false, newExercises);
             }
         });
 
     }
 
-    private void updateFirestoreArray(String userEmail, int position, Routine cardData, boolean isToday) {
+    private void updateFirestoreArray(String userEmail, int position, Routine cardData, boolean isToday, ArrayList<Exercise> exercises) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection("users");
         DocumentReference userDocRef = usersRef.document(userEmail);
@@ -128,6 +141,8 @@ public class DailyRoutineCardAdapter extends RecyclerView.Adapter<DailyRoutineCa
 
                             Map<String, Object> updateData = new HashMap<>();
                             updateData.put("days", days);
+                            if(exercises != null)
+                                updateData.put("exercises", exercises);
 
                             DocumentReference routineDocRef = routinesRef.document(document.getId());
                             routineDocRef.update(updateData)

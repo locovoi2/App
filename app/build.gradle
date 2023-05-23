@@ -3,6 +3,10 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
 android {
     namespace 'edu.ub.pis.app'
     compileSdk 33
@@ -70,6 +74,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation 'me.relex:circleindicator:2.1.4'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }
