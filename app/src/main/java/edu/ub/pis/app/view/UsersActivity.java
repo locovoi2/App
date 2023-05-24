@@ -3,6 +3,7 @@ package edu.ub.pis.app.view;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +22,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.model.User;
+import edu.ub.pis.app.model.UserMailFirebase;
 import edu.ub.pis.app.viewmodel.users.UsersViewModel;
 
 public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
     private RecyclerView recyclerView;
     private PopupWindow popupWindow;
     private View popupView;
+
+    private PopupWindow popupWindow1;
+    private View popupView1;
 
     private boolean click = false;
     private UsersViewModel mUsersViewModel;
@@ -41,11 +47,13 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
 
     private User lastAdded;
 
+    private String trainerMail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
-
+        trainerMail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         mUsersViewModel = new ViewModelProvider(this)
                 .get(UsersViewModel.class);
 
@@ -53,6 +61,7 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         popupView = inflater.inflate(R.layout.add_user_popup_layout, null);
+
         popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); // Fondo blanco
@@ -62,6 +71,16 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         popupWindow.setElevation(40);
 
+        LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        popupView1 = inflater1.inflate(R.layout.popup_delete_user_layout, null);
+        popupWindow1 = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        popupWindow1.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); // Fondo blanco
+        popupWindow1.setAnimationStyle(androidx.appcompat.R.style.Animation_AppCompat_Tooltip);
+        popupWindow1.setFocusable(true);
+        popupWindow1.setOutsideTouchable(false);
+        popupWindow1.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupWindow1.setElevation(40);
 
 
         EditText mail = popupView.findViewById(R.id.editTextUserMail);
@@ -100,25 +119,11 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
         }
 
         // Crear y establecer el adaptador para el RecyclerView
-        mUserTrainerAdapter = new UserTrainerAdapter(userList);
+        mUserTrainerAdapter = new UserTrainerAdapter(userList,this);
         recyclerView.setAdapter(mUserTrainerAdapter);
-
-        /*mUsersViewModel.getUsers().observe(this,new Observer<ArrayList<User>>() {
-            @Override
-            public void onChanged(ArrayList<User> users) {
-                // Triem els usuaris que son Trainers
-                ArrayList<User> users1 = new ArrayList<>();
-                for(User user : users){
-                    if(!user.getTrainer()){
-                        users1.add(user);
-                    }
-                }
-
-                // Actualitzem la llista d'entrenadors en el RecyclerViewAdapter
-                mUserTrainerAdapter.updateUsers(users1);
-            }
-        });*/
         mUsersViewModel.loadUsersFromRepository();
+        mUsersViewModel.loadUsersTrained(trainerMail);
+        loadUsersTrained(mUsersViewModel.getUsersTrained().getValue());
 
     }
 
@@ -146,6 +151,8 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
                         mySnackbar.show();
                     } else {
                         userList.add(user);
+                        String email1 = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                        mUsersViewModel.addUserTrained(email1,email);
                         lastAdded = user;
                         Snackbar mySnackbar1 = Snackbar.make(findViewById(R.id.users_coordinator_layout), "Se ha añadido el usuario.", 3000);
                         mySnackbar1.setAction("Undo", new MyUndoListener());
@@ -172,5 +179,28 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
             mUserTrainerAdapter.notifyDataSetChanged();
         }
     }
+    public void loadUsersTrained(ArrayList<UserMailFirebase> users){
+        for (User user : mUsersViewModel.getUsers().getValue()){
+            Log.i("LoadingUsers",user.getName());
+            String documentSnapshotKey = user.getId();
+            String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
+            String email_aux = parts[1];
+            String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+            String email = parts2[0];
+            Log.i("LoadingUsers", email);
+            for (UserMailFirebase userMail : users){
+                if (email == userMail.getMail()){
+                    userList.add(user);
+                    mUserTrainerAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public void deleteUser(User user){
+        userList.remove(user);
+        mUserTrainerAdapter.notifyDataSetChanged();
+    }
+
 
 }

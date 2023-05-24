@@ -1,13 +1,18 @@
 package edu.ub.pis.app.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -19,8 +24,12 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
 
     private ArrayList<User> mUserList;
 
-    public UserTrainerAdapter(ArrayList<User> itemList) {
+
+    private Context mContext;
+
+    public UserTrainerAdapter(ArrayList<User> itemList,Context context) {
         this.mUserList = itemList;
+        mContext = context;
     }
 
 
@@ -28,6 +37,7 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -36,6 +46,7 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = mUserList.get(position);
         String documentSnapshotKey = user.getId();
+
         String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
         String email_aux = parts[1];
         String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
@@ -53,6 +64,27 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
                 view.getContext().startActivity(intent);
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                popupMenu.inflate(R.menu.menu_popup_user); // El archivo XML del menú emergente
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        // Maneja los clics en los elementos del menú emergente
+                        switch (item.getItemId()) {
+                            case R.id.menu_delete_option:
+                                ((UsersActivity)mContext).deleteUser(user);
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popupMenu.show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -65,6 +97,8 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
         TextView mailTextView;
         TextView nameTextView;
         TextView surnameTextView;
+
+        ImageView trashIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

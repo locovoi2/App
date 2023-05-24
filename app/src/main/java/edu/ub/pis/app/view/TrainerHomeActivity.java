@@ -2,12 +2,14 @@ package edu.ub.pis.app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,11 +20,15 @@ import com.google.android.material.navigation.NavigationView;
 import edu.ub.pis.app.R;
 import edu.ub.pis.app.databinding.ActivityTrainerHomeBinding;
 import edu.ub.pis.app.model.User;
+import edu.ub.pis.app.databinding.ActivityHomeBinding;
+import edu.ub.pis.app.viewmodel.users.UsersViewModel;
 
 public class TrainerHomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityTrainerHomeBinding binding;
+
+    private UsersViewModel mUsersViewModel;
 
     private User user;
 
@@ -35,6 +41,7 @@ public class TrainerHomeActivity extends AppCompatActivity {
             if(extras == null) {
                 user= null;
             } else {
+
                 user= (User)extras.get("user");
             }
         } else {
@@ -44,10 +51,18 @@ public class TrainerHomeActivity extends AppCompatActivity {
         binding = ActivityTrainerHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        NavigationView navigationView = binding.navTrainerView;
+
+        mUsersViewModel = new ViewModelProvider(this)
+                .get(UsersViewModel.class);
+
+
+        binding = ActivityTrainerHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         setSupportActionBar(binding.appBarTrainerHome.toolbar);
 
         DrawerLayout drawer = binding.drawerTrainerLayout;
-        NavigationView navigationView = binding.navTrainerView;
 
         View headerView = navigationView.getHeaderView(0);
         Intent intent = getIntent();

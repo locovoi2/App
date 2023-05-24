@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Title"
             android:textSize="16sp"
-            android:textColor="#000000"
+            android:textColor="#2F4D5B"
             android:textStyle="bold" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Subtitle"
             android:textSize="14sp"
-            android:textColor="#888888" />
+            android:textColor="#2F4D5B" />
 
         <TextView
             android:id="@+id/surnameTextView"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="Content"
             android:textSize="14sp"
-            android:textColor="#000000" />
+            android:textColor="#2F4D5B" />
 
     </LinearLayout>
 

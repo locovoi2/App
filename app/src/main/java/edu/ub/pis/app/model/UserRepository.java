@@ -36,6 +36,10 @@ public class UserRepository {
         void onLoadUsers(ArrayList<User> users);
     }
 
+    public interface OnLoadUsersTrainedListener {
+        void onLoadUsersTrained(ArrayList<UserMailFirebase> users);
+    }
+
     public interface OnLoadUserListener {
         void onLoadUser(User users);
     }
@@ -43,6 +47,8 @@ public class UserRepository {
     public ArrayList<OnLoadUsersListener> mOnLoadUsersListeners = new ArrayList<>();
 
     public ArrayList<OnLoadUserListener> mOnLoadUserListeners = new ArrayList<>();
+
+    public ArrayList<OnLoadUsersTrainedListener> mOnLoadUsersTrainedListeners = new ArrayList<>();
 
     /** Definició de listener (interficie)
      * per poder escoltar quan s'hagi acabat de llegir la Url de la foto de perfil
@@ -310,6 +316,57 @@ public class UserRepository {
                 })
                 .addOnFailureListener(exception -> {
                     Log.d(TAG, "Photo upload failed: " + pictureUrl);
+                });
+    }
+
+    public void addOnLoadUsersTrainedListener(UserRepository.OnLoadUsersTrainedListener listener) {
+        mOnLoadUsersTrainedListeners.add(listener);
+    }
+
+
+    public void addUserTrained (String email, String userMail) {
+        UserMailFirebase user = new UserMailFirebase(userMail);
+        mDb.collection("users")
+                .document(email)
+                .collection("usersTrained")
+                .document(userMail)
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "User saved");
+                        } else {
+                            Log.d(TAG, "User not saved");
+                        }
+                    }
+                });
+    }
+
+    public void loadUsersTrained(String email, ArrayList<UserMailFirebase> usersTrained){
+        usersTrained.clear();
+        mDb.collection("users")
+                .document(email)
+                .collection("usersTrained")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                UserMailFirebase user = document.toObject(UserMailFirebase.class);
+                                usersTrained.add(user);
+                                Log.d(TAG, usersTrained.get(0).getMail());
+                            }
+                            /* Callback listeners */
+                            for (UserRepository.OnLoadUsersTrainedListener l: mOnLoadUsersTrainedListeners) {
+                                l.onLoadUsersTrained(usersTrained);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
                 });
     }
 }

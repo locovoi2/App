@@ -161,7 +161,6 @@ public class DailyPage extends Fragment {
     public void updateRoutines(ArrayList<Routine> routinesTotal) {
         ArrayList<Routine> dRoutines = new ArrayList<>();
         for(Routine routine : routinesTotal) {
-
             if(routine.getDays().get(day)) {
                 dRoutines.add(routine);
             }

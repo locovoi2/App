@@ -15,6 +15,7 @@ public class Routine {
     public Routine(String name, ArrayList<Exercise> exercises) {
         this.name = name;
         this.exercises = exercises;
+        this.days = new ArrayList<>();
         for(int i = 0; i < 7; i++) {
             this.days.add(false);
         }
@@ -42,7 +43,6 @@ public class Routine {
     public void setExercises(ArrayList<Exercise> exercises) {
         this.exercises = exercises;
     }
-
 
     public ArrayList<Boolean> getDays() {
         return days;
