@@ -22,4 +22,7 @@
     <string name="weight">Weight</string>
     <string name="add_exercise">Add exercise</string>
     <string name="finish">Finish</string>
+    <string name="title_activity_trainer_home">TrainerHomeActivity</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 </resources>
