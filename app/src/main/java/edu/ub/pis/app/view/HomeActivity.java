@@ -165,9 +165,11 @@ public class HomeActivity extends AppCompatActivity {
         if(mHomeActivityViewModel.getPremium()) {
             mHomeActivityViewModel.updatePremium(false);
             mTextViewVip.setText("");
+            mButtonVip.setText("PREMIUM");
         } else {
             mHomeActivityViewModel.updatePremium(true);
             mTextViewVip.setText("VIP");
+            mButtonVip.setText("CANCEL PREMIUM");
         }
     }
 }
