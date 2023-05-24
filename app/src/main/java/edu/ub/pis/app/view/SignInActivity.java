@@ -102,10 +102,15 @@ public class SignInActivity extends AppCompatActivity {
                                                 boolean premium = document.getBoolean("user_premium");
                                                 String Name_surname = name + " " + surname;
                                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                                                Intent intent2 = new Intent(SignInActivity.this, UsersActivity.class);
                                                 intent.putExtra("USER_MAIL", email);
                                                 intent.putExtra("USER_NAME", Name_surname);
                                                 intent.putExtra("USER_PREMIUM", premium);
-                                                startActivity(intent);
+                                                if(document.getBoolean("trainer")){
+                                                    startActivity(intent2);
+                                                } else {
+                                                    startActivity(intent);
+                                                }
                                             } else {
                                                 Log.d("MiActividad", "No se encontró el documento");
                                             }
