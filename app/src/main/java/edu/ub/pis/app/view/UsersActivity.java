@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 import edu.ub.pis.app.R;
+import edu.ub.pis.app.model.Routine;
 import edu.ub.pis.app.model.User;
 import edu.ub.pis.app.model.UserMailFirebase;
 import edu.ub.pis.app.viewmodel.users.UsersViewModel;
@@ -37,9 +39,6 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
     private RecyclerView recyclerView;
     private PopupWindow popupWindow;
     private View popupView;
-
-    private PopupWindow popupWindow1;
-    private View popupView1;
 
     private boolean click = false;
     private UsersViewModel mUsersViewModel;
@@ -69,20 +68,9 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); // Fondo blanco
         popupWindow.setAnimationStyle(androidx.appcompat.R.style.Animation_AppCompat_Tooltip);
         popupWindow.setFocusable(true);
-        popupWindow.setOutsideTouchable(false);
+        popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         popupWindow.setElevation(40);
-
-        LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        popupView1 = inflater1.inflate(R.layout.popup_delete_user_layout, null);
-        popupWindow1 = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        popupWindow1.setBackgroundDrawable(new ColorDrawable(Color.WHITE)); // Fondo blanco
-        popupWindow1.setAnimationStyle(androidx.appcompat.R.style.Animation_AppCompat_Tooltip);
-        popupWindow1.setFocusable(true);
-        popupWindow1.setOutsideTouchable(false);
-        popupWindow1.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        popupWindow1.setElevation(40);
 
 
         EditText mail = popupView.findViewById(R.id.editTextUserMail);
@@ -115,24 +103,29 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
         // Crear la lista de elementos para el RecyclerView
         userList = new ArrayList();
         userList = mUsersViewModel.getUsers().getValue();
-       /* for(User user : mUsersViewModel.getUsersTrained().getValue()){
-            userList.add(user);
-        } */
 
         // Crear y establecer el adaptador para el RecyclerView
         mUsersViewModel.loadUsersTrained(trainerMail);
+        /*for(User user : mUsersViewModel.getUsersTrained().getValue()){
+            userList.add(user);
+        }*/
+
         userList = mUsersViewModel.getUsersTrained().getValue();
+
+        //userList = mUsersViewModel.getUsersTrained1();
 
 
         mUserTrainerAdapter = new UserTrainerAdapter(userList,this);
         recyclerView.setAdapter(mUserTrainerAdapter);
+        final Observer<ArrayList<User>> observerUsers = new Observer<ArrayList<User>>() {
+            @Override
+            public void onChanged(ArrayList<User> Routines) {
+                mUserTrainerAdapter.updateUsers(mUsersViewModel.getUsersTrained().getValue());
+            }
+        };
+        mUsersViewModel.getUsersTrained().observe(this,observerUsers);
         mUsersViewModel.loadUsersFromRepository();
-
         //    loadUsersTrained(mUsersViewModel.getUsersTrained().getValue());
-
-        mUserTrainerAdapter.notifyDataSetChanged();
-
-
     }
 
     private void addUser(String mail, String number){
@@ -150,9 +143,14 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
 
                 String documentSnapshotKey = user.getId();
                 String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
-                String email_aux = parts[1];
-                String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
-                String email = parts2[0];
+                String email;
+                if (parts.length > 1 ) {
+                    String email_aux = parts[1];
+                    String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+                    email = parts2[0];
+                } else {
+                    email = documentSnapshotKey;
+                }
                 if(!user.getTrainer() && email.equals(mail) && (user.getUserCode() == userNum)){
                     if (userList.contains(user)){
                         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.users_coordinator_layout), "Este usuario ya ha sido añadido.", 3000);
@@ -207,6 +205,7 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
 
     public void deleteUser(User user){
         userList.remove(user);
+        mUsersViewModel.deleteUserTrained(trainerMail,user);
         mUserTrainerAdapter.notifyDataSetChanged();
     }
 

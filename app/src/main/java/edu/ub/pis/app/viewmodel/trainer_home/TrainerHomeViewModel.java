@@ -70,4 +70,7 @@ public class TrainerHomeViewModel extends AndroidViewModel {
     public void loadUserFromRepository() {
         mUserRepository.loadUser(userEmail);
     }
+    public void loadUserFromRepository(String mail) {
+        mUserRepository.loadUser(mail);
+    }
 }

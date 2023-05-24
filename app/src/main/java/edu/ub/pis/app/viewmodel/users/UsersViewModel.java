@@ -19,6 +19,7 @@ public class UsersViewModel extends AndroidViewModel {
     private final MutableLiveData<ArrayList<User>> mUsers;
 
     private final MutableLiveData<ArrayList<User>> mUsersTrained;
+    //private ArrayList<User> usersTrained;
     private UserRepository mUserRepository; // On es manté la informació dels usuaris
 
     /*mUserRepository.addOnLoadUsersListener(new UserRepository.OnLoadUsersListener() {
@@ -56,10 +57,17 @@ public class UsersViewModel extends AndroidViewModel {
         mUsers.setValue(users);
     }
     public void setUsersTrained(ArrayList<User> users) {
+        //usersTrained = users;
         mUsersTrained.setValue(users);
+
     }
 
+    /*public ArrayList<User> getUsersTrained1(){
+        return this.usersTrained;
+    }*/
     public void addUserTrained(String email, User user) {mUserRepository.addUserTrained(email, user);}
+
+    public void deleteUserTrained(String email, User user){mUserRepository.deleteUserTrained(email, user);}
 
     public void loadUsersTrained(String email) {mUserRepository.loadUsersTrained(email, mUsersTrained.getValue());}
 }

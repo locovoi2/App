@@ -106,7 +106,7 @@ public class SignInActivity extends AppCompatActivity {
                                                 boolean train = User.getTrainer();
                                                 if (train && trainer) {
                                                     Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
-                            /*                        intent.putExtra("USER_MAIL", email);
+                            /*                      intent.putExtra("USER_MAIL", email);
                                                     intent.putExtra("USER_NAME", Name_surname);
                                                     intent.putExtra("user", User); */
                                                     startActivity(intent);

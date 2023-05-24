@@ -46,11 +46,16 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         User user = mUserList.get(position);
         String documentSnapshotKey = user.getId();
+        String email;
 
         String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
-        String email_aux = parts[1];
-        String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
-        String email = parts2[0];
+        if (parts.length > 1 ) {
+            String email_aux = parts[1];
+            String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+            email = parts2[0];
+        } else {
+            email = documentSnapshotKey;
+        }
         holder.mailTextView.setText(email);
         holder.nameTextView.setText(user.getName());
         holder.surnameTextView.setText(user.getSurname());
