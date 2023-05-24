@@ -92,4 +92,8 @@ public class SeeRoutinesViewModel extends AndroidViewModel {
     public void removeRoutineFromBBDD() {
         mRoutineRepository.deleteRoutine(userEmail, RoutineToDelete.getValue().getName());
     }
+
+    public void setUserEmail(String userEmail){
+        this.userEmail = userEmail;
+    }
 }

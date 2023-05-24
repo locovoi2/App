@@ -76,7 +76,8 @@ public class TrainerHomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_trainer_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_trainer_home, R.id.nav_manage_routines, R.id
+                .nav_trainer_manage_routines)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_trainer_home);
@@ -96,5 +97,9 @@ public class TrainerHomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_trainer_home);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public String getUserMail(){
+        return this.mUserRepository.getMail(this.mTrainerHomeViewModel.getUser().getValue());
     }
 }
