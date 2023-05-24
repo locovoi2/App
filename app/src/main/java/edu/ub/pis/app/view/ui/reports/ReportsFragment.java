@@ -196,7 +196,10 @@ public class ReportsFragment extends Fragment {
         @Override
         public String getFormattedValue(float value) {
             // Custom labels for each bar
-            return  exerciseNames.get(Math.round(value));
+            if(Math.round(value) < exerciseNames.size())
+                return  exerciseNames.get(Math.round(value));
+            else
+                return "";
         }
 
         public void setExerciseNames(ArrayList<String> exerciseNames) {
