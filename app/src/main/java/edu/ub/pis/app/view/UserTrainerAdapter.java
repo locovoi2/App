@@ -60,7 +60,7 @@ public class UserTrainerAdapter extends RecyclerView.Adapter<UserTrainerAdapter.
                 // Acción a realizar al hacer clic en el elemento
                 // Por ejemplo, iniciar una nueva actividad y pasar datos
                 Intent intent = new Intent(view.getContext(), TrainerHomeActivity.class);
-                intent.putExtra("userId", user);
+                intent.putExtra("user", user);
                 view.getContext().startActivity(intent);
             }
         });

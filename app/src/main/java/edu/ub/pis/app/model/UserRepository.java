@@ -37,7 +37,7 @@ public class UserRepository {
     }
 
     public interface OnLoadUsersTrainedListener {
-        void onLoadUsersTrained(ArrayList<UserMailFirebase> users);
+        void onLoadUsersTrained(ArrayList<User> users);
     }
 
     public interface OnLoadUserListener {
@@ -324,12 +324,11 @@ public class UserRepository {
     }
 
 
-    public void addUserTrained (String email, String userMail) {
-        UserMailFirebase user = new UserMailFirebase(userMail);
+    public void addUserTrained (String email, User user) {
         mDb.collection("users")
                 .document(email)
                 .collection("usersTrained")
-                .document(userMail)
+                .document(getMail(user))
                 .set(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -343,7 +342,7 @@ public class UserRepository {
                 });
     }
 
-    public void loadUsersTrained(String email, ArrayList<UserMailFirebase> usersTrained){
+    public void loadUsersTrained(String email, ArrayList<User> usersTrained){
         usersTrained.clear();
         mDb.collection("users")
                 .document(email)
@@ -355,9 +354,8 @@ public class UserRepository {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                UserMailFirebase user = document.toObject(UserMailFirebase.class);
+                                User user = document.toObject(User.class);
                                 usersTrained.add(user);
-                                Log.d(TAG, usersTrained.get(0).getMail());
                             }
                             /* Callback listeners */
                             for (UserRepository.OnLoadUsersTrainedListener l: mOnLoadUsersTrainedListeners) {
@@ -368,5 +366,14 @@ public class UserRepository {
                         }
                     }
                 });
+    }
+
+    public String getMail(User user) {
+        String documentSnapshotKey = user.getId();
+        String[] parts = documentSnapshotKey.split("/"); // Dividir la cadena en dos partes
+        String email_aux = parts[1];
+        String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+        String email = parts2[0];
+        return email;
     }
 }

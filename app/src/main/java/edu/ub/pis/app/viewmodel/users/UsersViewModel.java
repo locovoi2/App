@@ -18,7 +18,7 @@ public class UsersViewModel extends AndroidViewModel {
 
     private final MutableLiveData<ArrayList<User>> mUsers;
 
-    private final MutableLiveData<ArrayList<UserMailFirebase>> mUsersTrained;
+    private final MutableLiveData<ArrayList<User>> mUsersTrained;
     private UserRepository mUserRepository; // On es manté la informació dels usuaris
 
     /*mUserRepository.addOnLoadUsersListener(new UserRepository.OnLoadUsersListener() {
@@ -41,7 +41,7 @@ public class UsersViewModel extends AndroidViewModel {
 
         mUserRepository.addOnLoadUsersTrainedListener(new UserRepository.OnLoadUsersTrainedListener() {
             @Override
-            public void onLoadUsersTrained(ArrayList<UserMailFirebase> usersTrained) {
+            public void onLoadUsersTrained(ArrayList<User> usersTrained) {
                 setUsersTrained(usersTrained);
             }
         });
@@ -50,16 +50,16 @@ public class UsersViewModel extends AndroidViewModel {
     public void loadUsersFromRepository() { mUserRepository.loadUsers(mUsers.getValue()); }
 
     public LiveData<ArrayList<User>> getUsers() { return mUsers; }
-    public LiveData<ArrayList<UserMailFirebase>> getUsersTrained() { return mUsersTrained; }
+    public LiveData<ArrayList<User>> getUsersTrained() { return mUsersTrained; }
 
     public void setUsers(ArrayList<User> users) {
         mUsers.setValue(users);
     }
-    public void setUsersTrained(ArrayList<UserMailFirebase> users) {
+    public void setUsersTrained(ArrayList<User> users) {
         mUsersTrained.setValue(users);
     }
 
-    public void addUserTrained(String email, String user) {mUserRepository.addUserTrained(email, user);}
+    public void addUserTrained(String email, User user) {mUserRepository.addUserTrained(email, user);}
 
     public void loadUsersTrained(String email) {mUserRepository.loadUsersTrained(email, mUsersTrained.getValue());}
 }

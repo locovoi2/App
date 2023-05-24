@@ -14,6 +14,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -112,18 +114,24 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
 
         // Crear la lista de elementos para el RecyclerView
         userList = new ArrayList();
-        for(User user : mUsersViewModel.getUsers().getValue()){
-            if(user.getTrainer()){
-                userList.add(user);
-            }
-        }
+        userList = mUsersViewModel.getUsers().getValue();
+       /* for(User user : mUsersViewModel.getUsersTrained().getValue()){
+            userList.add(user);
+        } */
 
         // Crear y establecer el adaptador para el RecyclerView
+        mUsersViewModel.loadUsersTrained(trainerMail);
+        userList = mUsersViewModel.getUsersTrained().getValue();
+
+
         mUserTrainerAdapter = new UserTrainerAdapter(userList,this);
         recyclerView.setAdapter(mUserTrainerAdapter);
         mUsersViewModel.loadUsersFromRepository();
-        mUsersViewModel.loadUsersTrained(trainerMail);
-        loadUsersTrained(mUsersViewModel.getUsersTrained().getValue());
+
+        //    loadUsersTrained(mUsersViewModel.getUsersTrained().getValue());
+
+        mUserTrainerAdapter.notifyDataSetChanged();
+
 
     }
 
@@ -146,13 +154,13 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
                 String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
                 String email = parts2[0];
                 if(!user.getTrainer() && email.equals(mail) && (user.getUserCode() == userNum)){
-                   if (userList.contains(user)){
+                    if (userList.contains(user)){
                         Snackbar mySnackbar = Snackbar.make(findViewById(R.id.users_coordinator_layout), "Este usuario ya ha sido añadido.", 3000);
                         mySnackbar.show();
                     } else {
                         userList.add(user);
                         String email1 = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                        mUsersViewModel.addUserTrained(email1,email);
+                        mUsersViewModel.addUserTrained(email1,user);
                         lastAdded = user;
                         Snackbar mySnackbar1 = Snackbar.make(findViewById(R.id.users_coordinator_layout), "Se ha añadido el usuario.", 3000);
                         mySnackbar1.setAction("Undo", new MyUndoListener());
@@ -179,7 +187,7 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
             mUserTrainerAdapter.notifyDataSetChanged();
         }
     }
-    public void loadUsersTrained(ArrayList<UserMailFirebase> users){
+/*    public void loadUsersTrained(ArrayList<User> users){
         for (User user : mUsersViewModel.getUsers().getValue()){
             Log.i("LoadingUsers",user.getName());
             String documentSnapshotKey = user.getId();
@@ -188,14 +196,14 @@ public class UsersActivity extends AppCompatActivity implements LifecycleOwner {
             String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
             String email = parts2[0];
             Log.i("LoadingUsers", email);
-            for (UserMailFirebase userMail : users){
+            for (User user : users){
                 if (email == userMail.getMail()){
                     userList.add(user);
                     mUserTrainerAdapter.notifyDataSetChanged();
                 }
             }
         }
-    }
+    } */
 
     public void deleteUser(User user){
         userList.remove(user);

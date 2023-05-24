@@ -56,15 +56,11 @@ public class TrainerHomeActivity extends AppCompatActivity {
         mUsersViewModel = new ViewModelProvider(this)
                 .get(UsersViewModel.class);
 
-
-        binding = ActivityTrainerHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarTrainerHome.toolbar);
 
         DrawerLayout drawer = binding.drawerTrainerLayout;
 
-        View headerView = navigationView.getHeaderView(0);
+    /*    View headerView = navigationView.getHeaderView(0);
         Intent intent = getIntent();
         if (intent != null) {
             String mUserMail = (String) intent.getStringExtra("USER_MAIL");
@@ -73,7 +69,7 @@ public class TrainerHomeActivity extends AppCompatActivity {
             TextView userNameTextView = headerView.findViewById(R.id.uName_surname);
             userMailTextView.setText(mUserMail);
             userNameTextView.setText(mUserName);
-        }
+        } */
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
