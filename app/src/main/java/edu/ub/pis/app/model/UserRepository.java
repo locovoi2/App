@@ -36,6 +36,10 @@ public class UserRepository {
         void onLoadUsers(ArrayList<User> users);
     }
 
+    public interface OnLoadUsersTrainedListener {
+        void onLoadUsersTrained(ArrayList<User> users);
+    }
+
     public interface OnLoadUserListener {
         void onLoadUser(User users);
     }
@@ -43,6 +47,8 @@ public class UserRepository {
     public ArrayList<OnLoadUsersListener> mOnLoadUsersListeners = new ArrayList<>();
 
     public ArrayList<OnLoadUserListener> mOnLoadUserListeners = new ArrayList<>();
+
+    public ArrayList<OnLoadUsersTrainedListener> mOnLoadUsersTrainedListeners = new ArrayList<>();
 
     /** Definició de listener (interficie)
      * per poder escoltar quan s'hagi acabat de llegir la Url de la foto de perfil
@@ -311,5 +317,121 @@ public class UserRepository {
                 .addOnFailureListener(exception -> {
                     Log.d(TAG, "Photo upload failed: " + pictureUrl);
                 });
+    }
+
+    public void addOnLoadUsersTrainedListener(UserRepository.OnLoadUsersTrainedListener listener) {
+        mOnLoadUsersTrainedListeners.add(listener);
+    }
+
+
+    public void addUserTrained (String email, User user) {
+        mDb.collection("users")
+                .document(email)
+                .collection("usersTrained")
+                .document(getMail(user))
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "User saved");
+                        } else {
+                            Log.d(TAG, "User not saved");
+                        }
+                    }
+                });
+    }
+
+    public void deleteUserTrained (String email, User user) {
+        mDb.collection("users")
+                .document(email)
+                .collection("usersTrained")
+                .document(getMail(user))
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "User saved");
+                        } else {
+                            Log.d(TAG, "User not saved");
+                        }
+                    }
+                });
+    }
+
+    public void loadUsersTrained(String email, ArrayList<User> usersTrained){
+        usersTrained.clear();
+        mDb.collection("users")
+                .document(email)
+                .collection("usersTrained")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                int usCode;
+                                if(document.getLong("user_code") != null) {
+                                    usCode = document.getLong("user_code").intValue();
+                                }
+                                else usCode = 0;
+
+                                boolean usPremium;
+                                if(document.getBoolean("user_premium") != null) {
+                                    usPremium = document.getBoolean("user_premium");
+                                }
+                                else usPremium = false;
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                //String mail = getMail(document.getId());
+                                User user = new User(
+                                        document.getId(), // ID = Email
+                                        document.getString("name"),
+                                        document.getString("surname"),
+                                        document.getBoolean("trainer"),
+                                        document.getString("description"),
+                                        document.getString("price"),
+                                        usCode,
+                                        document.getString("contact_phone_number"),
+                                        usPremium
+                                );
+                                usersTrained.add(user);
+                            }
+                            /* Callback listeners */
+                            for (UserRepository.OnLoadUsersListener l: mOnLoadUsersListeners) {
+                                l.onLoadUsers(usersTrained);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    public String getMail(User user) {
+        String documentSnapshotKey = user.getId();
+        String[] parts = documentSnapshotKey.split("/");
+        String email;
+        if (parts.length > 1) {
+            String email_aux = parts[1];
+            String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+            email = parts2[0];
+        } else {
+            email = documentSnapshotKey;
+        }
+        return email;
+    }
+
+    public String getMail(String id){
+        String[] parts = id.split("/"); // Dividir la cadena en dos partes
+        String email;
+        if (parts.length > 1) {
+            String email_aux = parts[1];
+            String[] parts2 = email_aux.split(","); // Dividir la cadena en dos partes
+            email = parts2[0];
+        } else {
+            email = id;
+        }
+        return email;
     }
 }

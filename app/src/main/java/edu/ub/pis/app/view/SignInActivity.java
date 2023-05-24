@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import edu.ub.pis.app.R;
+import edu.ub.pis.app.model.User;
 
 public class SignInActivity extends AppCompatActivity {
     private final String TAG = "SignInActivity";
@@ -96,16 +97,30 @@ public class SignInActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()) {
+                                                User User = document.toObject(User.class);
                                                 // Obtén el valor del campo "nombre"
-                                                String name = document.getString("name");
-                                                String surname = document.getString("surname");
-                                                boolean premium = document.getBoolean("user_premium");
+                                                String name = User.getName();
+                                                String surname = User.getSurname();
+                                                boolean premium = User.getPremium();
                                                 String Name_surname = name + " " + surname;
-                                                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                                                intent.putExtra("USER_MAIL", email);
-                                                intent.putExtra("USER_NAME", Name_surname);
-                                                intent.putExtra("USER_PREMIUM", premium);
-                                                startActivity(intent);
+                                                boolean train = User.getTrainer();
+                                                if (train && trainer) {
+                                                    Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
+                            /*                      intent.putExtra("USER_MAIL", email);
+                                                    intent.putExtra("USER_NAME", Name_surname);
+                                                    intent.putExtra("user", User); */
+                                                    startActivity(intent);
+                                                } else if (!train && !trainer) {
+                                                    Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                                                    intent.putExtra("USER_MAIL", email);
+                                                    intent.putExtra("USER_NAME", Name_surname);
+                                                    intent.putExtra("USER_PREMIUM", premium);
+                                                    startActivity(intent);
+                                                } else if (train && !trainer) {
+                                                    Toast.makeText(SignInActivity.this, "Entrenador no registrado como usuario", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(SignInActivity.this, "Usuario no registrado como entrenador", Toast.LENGTH_SHORT).show();
+                                                }
                                             } else {
                                                 Log.d("MiActividad", "No se encontró el documento");
                                             }
