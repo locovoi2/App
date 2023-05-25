@@ -11,22 +11,22 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_trainer_home_to_nav_gallery"
-            app:destination="@id/nav_gallery" />
+            android:id="@+id/action_nav_trainer_home_to_nav_manage_routines"
+            app:destination="@id/nav_manage_routines" />
         <action
-            android:id="@+id/action_nav_trainer_home_to_nav_slideshow"
-            app:destination="@id/nav_slideshow" />
+            android:id="@+id/action_nav_trainer_home_to_nav_trainer_daily_routines"
+            app:destination="@id/nav_trainer_daily_routines" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="edu.ub.pis.app.view.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/nav_trainer_manage_routines"
+        android:name="edu.ub.pis.app.view.ui.trainer_manage_routines.TrainerManageRoutinesFragment"
+        android:label="@string/menu_manage_routines"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="edu.ub.pis.app.view.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_trainer_daily_routines"
+        android:name="edu.ub.pis.app.view.ui.trainer_daily_routines.TrainerDailyRoutinesFragment"
+        android:label="@string/menu_daily_routines"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>
