@@ -118,7 +118,7 @@ public class AddRoutinesPage extends Fragment {
         if(name.isEmpty() || series.isEmpty() || reps.isEmpty() || weight.isEmpty()) {
             Toast.makeText(getContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
         } else {
-            Exercise exercise = new Exercise(name, series, reps, weight);
+            Exercise exercise = new Exercise(name, series, reps, weight, "0");
             exercisesList.add(exercise);
             mEditTextExerciseName.setText("");
             mEditTextSeries.setText("");

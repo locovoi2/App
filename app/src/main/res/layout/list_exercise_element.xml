@@ -13,145 +13,126 @@
         android:background="@drawable/rounded_corners">
 
         <!-- Title, secondary and supporting text -->
-
         <TextView
-            android:id="@+id/listElementExerciseName"
-            android:textColor="@color/black"
-            android:layout_width="347dp"
-            android:layout_height="30dp"
-            android:text="Full Name"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+                   android:id="@+id/listElementExerciseName"
+                   android:textColor="@color/black"
+                   android:layout_width="347dp"
+                   android:layout_height="30dp"
+                   android:text="Full Name"
+                   android:textAppearance="?attr/textAppearanceHeadline6"
+                   android:textStyle="bold"
+                   app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintTop_toTopOf="parent" />
+                   app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/listElementSeries"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="60dp"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:text="S"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintEnd_toStartOf="@+id/listElementRepes"
-            app:layout_constraintHorizontal_bias="0.508"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
+               <TextView
+                   android:id="@+id/listElementSeries"
+                   android:textColor="@color/black"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="16dp"
+                   android:layout_marginEnd="60dp"
+                   android:gravity="center|center_horizontal|center_vertical"
+                   android:text="S"
+                   android:textAppearance="?attr/textAppearanceHeadline6"
+                   app:layout_constraintEnd_toStartOf="@+id/listElementRepes"
+                   app:layout_constraintHorizontal_bias="0.508"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
-        <TextView
-            android:id="@+id/listElementRepes"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="44dp"
-            android:gravity="center|center_horizontal|center_vertical"
-            android:text="R"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+               <TextView
+                   android:id="@+id/listElementRepes"
+                   android:textColor="@color/black"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="44dp"
+                   android:gravity="center|center_horizontal|center_vertical"
+                   android:text="R"
+                   android:textAppearance="?attr/textAppearanceHeadline6"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintStart_toStartOf="parent" />
+                   app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/listElementWeight"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="W"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.442"
-            app:layout_constraintStart_toEndOf="@+id/listElementRepes"
-            app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
+               <TextView
+                   android:id="@+id/listElementWeight"
+                   android:textColor="@color/black"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="60dp"
+                   android:layout_marginTop="16dp"
+                   android:gravity="center"
+                   android:text="W"
+                   android:textAppearance="?attr/textAppearanceHeadline6"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.442"
+                   app:layout_constraintStart_toEndOf="@+id/listElementRepes"
+                   app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="1dp"
-            android:layout_height="87dp"
-            android:background="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/listElementRepes"
-            app:layout_constraintStart_toEndOf="@+id/listElementSeries"
-            app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
+               <View
+                   android:id="@+id/view"
+                   android:layout_width="1dp"
+                   android:layout_height="87dp"
+                   android:background="@android:color/black"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/listElementRepes"
+                   app:layout_constraintStart_toEndOf="@+id/listElementSeries"
+                   app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="87dp"
-            android:background="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/listElementWeight"
-            app:layout_constraintStart_toEndOf="@+id/listElementRepes"
-            app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
+               <View
+                   android:layout_width="1dp"
+                   android:layout_height="87dp"
+                   android:background="@android:color/black"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/listElementWeight"
+                   app:layout_constraintStart_toEndOf="@+id/listElementRepes"
+                   app:layout_constraintTop_toBottomOf="@+id/listElementExerciseName" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/listElementWeight"
-            app:layout_constraintHorizontal_bias="0.713"
-            app:layout_constraintStart_toEndOf="@+id/listElementRepes"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.252" />
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:background="@android:color/black"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toStartOf="@+id/listElementWeight"
+                   app:layout_constraintHorizontal_bias="0.713"
+                   app:layout_constraintStart_toEndOf="@+id/listElementRepes"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintVertical_bias="0.252" />
 
-        <TextView
-            android:id="@+id/num_series"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="16dp"
-            android:text="Series"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+               <TextView
+                   android:id="@+id/num_series"
+                   android:textColor="@color/gray"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="48dp"
+                   android:layout_marginBottom="16dp"
+                   android:text="Series"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/num_repes"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Reps"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+               <TextView
+                   android:id="@+id/num_repes"
+                   android:textColor="@color/gray"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="16dp"
+                   android:text="Reps"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/num_weight"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="16dp"
-            android:text="Weight"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+               <TextView
+                   android:id="@+id/num_weight"
+                   android:textColor="@color/gray"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="48dp"
+                   android:layout_marginBottom="16dp"
+                   android:text="Weight"
+                   app:layout_constraintBottom_toBottomOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent" />
 
 
-        <!--        &lt;!&ndash; Buttons &ndash;&gt;-->
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="376dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="8dp"-->
-        <!--            android:gravity="center"-->
-        <!--            android:orientation="horizontal">-->
+           </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--            <com.google.android.material.button.MaterialButton-->
-        <!--                style="?attr/borderlessButtonStyle"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center|center_horizontal"-->
-        <!--                android:gravity="center"-->
-        <!--                android:text="SETEA UN CLICK LISTENER EN TU ADAPTER" />-->
-
-        <!--        </LinearLayout>-->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+       </com.google.android.material.card.MaterialCardView>

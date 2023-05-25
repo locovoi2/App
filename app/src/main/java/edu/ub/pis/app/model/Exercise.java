@@ -11,27 +11,30 @@ public class Exercise implements Serializable {
     private String series;
     private String reps;
     private String weight;
+    private String pr;
     private ArrayList<Boolean> completed;
 
     //Constructors
     public Exercise() {}
 
-    public Exercise(String name, String series, String reps, String weight) {
+    public Exercise(String name, String series, String reps, String weight, String pr) {
         this.name = name;
         this.series = series;
         this.reps = reps;
         this.weight = weight;
+        this.pr = pr;
         this.completed = new ArrayList<Boolean>();
         for(int i = 0; i < 7; i++) {
             completed.add(false);
         }
     }
 
-    public Exercise(String name, String series, String reps, String weight, ArrayList<Boolean> completed) {
+    public Exercise(String name, String series, String reps, String weight, String pr, ArrayList<Boolean> completed) {
         this.name = name;
         this.series = series;
         this.reps = reps;
         this.weight = weight;
+        this.pr = pr;
         this.completed = completed;
     }
 
@@ -63,9 +66,16 @@ public class Exercise implements Serializable {
     public String getWeight() {
         return this.weight;
     }
+    public String getPr() {
+        return this.pr;
+    }
+
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+    public void setPr(String pr) {
+        this.pr = pr;
     }
 
     public ArrayList<Boolean> getCompleted() {
