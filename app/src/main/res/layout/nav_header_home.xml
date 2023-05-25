@@ -55,6 +55,17 @@
         app:layout_constraintTop_toBottomOf="@+id/uName_surname" />
 
     <TextView
+        android:id="@+id/tvToken"
+        android:layout_width="84dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
+        android:text="Token"
+        android:textColor="#2F4D5B"
+        app:layout_constraintBottom_toTopOf="@+id/textViewVip"
+        app:layout_constraintStart_toEndOf="@+id/imageView" />
+
+    <TextView
         android:id="@+id/textViewVip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

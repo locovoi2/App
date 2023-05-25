@@ -97,13 +97,14 @@ public class SignInActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             DocumentSnapshot document = task.getResult();
                                             if (document.exists()) {
-                                                User User = document.toObject(User.class);
+                                                User user = document.toObject(User.class);
                                                 // Obtén el valor del campo "nombre"
-                                                String name = User.getName();
-                                                String surname = User.getSurname();
-                                                boolean premium = User.getPremium();
+                                                String name = user.getName();
+                                                String surname = user.getSurname();
+                                                boolean premium = document.getBoolean("user_premium");
+                                                int usCode = document.getLong("user_code").intValue();
                                                 String Name_surname = name + " " + surname;
-                                                boolean train = User.getTrainer();
+                                                boolean train = user.getTrainer();
                                                 if (train && trainer) {
                                                     Intent intent = new Intent(SignInActivity.this, UsersActivity.class);
                             /*                      intent.putExtra("USER_MAIL", email);
@@ -115,6 +116,7 @@ public class SignInActivity extends AppCompatActivity {
                                                     intent.putExtra("USER_MAIL", email);
                                                     intent.putExtra("USER_NAME", Name_surname);
                                                     intent.putExtra("USER_PREMIUM", premium);
+                                                    intent.putExtra("USER_CODE", usCode);
                                                     startActivity(intent);
                                                 } else if (train && !trainer) {
                                                     Toast.makeText(SignInActivity.this, "Entrenador no registrado como usuario", Toast.LENGTH_SHORT).show();

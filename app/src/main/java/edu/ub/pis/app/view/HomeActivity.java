@@ -71,11 +71,17 @@ public class HomeActivity extends AppCompatActivity {
             String mUserMail = (String) intent.getStringExtra("USER_MAIL");
             String mUserName = (String) intent.getStringExtra("USER_NAME");
             boolean mUserPremium = (boolean) intent.getBooleanExtra("USER_PREMIUM", false);
+            int mUsCode = (int) intent.getIntExtra("USER_CODE", 0);
+            String UsCode = String.valueOf(mUsCode);
+            System.out.println(mUsCode);
+            System.out.println(UsCode);
             TextView userMailTextView = headerView.findViewById(R.id.uMail);
             TextView userNameTextView = headerView.findViewById(R.id.uName_surname);
             mTextViewVip = headerView.findViewById(R.id.textViewVip);
+            TextView userTokenTv = headerView.findViewById(R.id.tvToken);
             userMailTextView.setText(mUserMail);
             userNameTextView.setText(mUserName);
+            userTokenTv.setText(UsCode);
             if(mUserPremium) { mTextViewVip.setText("VIP"); }
             else { mTextViewVip.setText(""); }
         }
