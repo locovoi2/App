@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +60,8 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
         holder.exercicename.setText(cardItem.getName());
         ArrayList<Boolean> completedDays = cardItem.getCompleted();
         holder.completedBox.setChecked(completedDays.get(day));
+        holder.newPr.setText(cardItem.getPr());
+
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userEmail = mAuth.getCurrentUser().getEmail();
@@ -66,6 +69,14 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
         holder.completedBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             completedDays.set(day, isChecked);
             cardItem.setCompleted(completedDays);
+
+            String currentPr = holder.newPr.getText().toString();
+            int currentPrValue = Integer.parseInt(currentPr);
+            int previousPrValue = Integer.parseInt(cardItem.getPr());
+
+            if (currentPrValue > previousPrValue) {
+                cardItem.setPr(currentPr);
+            }
 
             updateFirestoreArray(userEmail, day, cardItem, completedDays, routineName);
 
@@ -136,12 +147,14 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
         ImageView avatarIcon;
         TextView exercicename;
         CheckBox completedBox;
+        EditText newPr;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatarIcon = itemView.findViewById(R.id.avatarIcon);
             exercicename = itemView.findViewById(R.id.exercicename);
             completedBox = itemView.findViewById(R.id.completedBox);
+            newPr = itemView.findViewById(R.id.prEditText);
         }
     }
 }

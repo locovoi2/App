@@ -86,13 +86,14 @@ public class ReportsFragment extends Fragment {
                                 String weight = (String) exercise.get("weight");
                                 String series = (String) exercise.get("series");
                                 String reps = (String) exercise.get("reps");
+                                String pr = (String) exercise.get("pr");
                                 ArrayList<Boolean> completed = (ArrayList<Boolean>) exercise.get("completed");
                                 //Log.println(Log.ASSERT, name,""+completed.size());
                                 /*
                                 Toast toast = Toast.makeText(getApplicationContext(), reps, Toast.LENGTH_SHORT);
                                 toast.show();*/
 
-                                exercisesArray.add(new Exercise(name, series, reps, weight, completed));
+                                exercisesArray.add(new Exercise(name, series, reps, weight, pr, completed));
                             }
 
                             routines.add(new Routine(routineName, exercisesArray, days));
