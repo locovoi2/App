@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -71,13 +73,20 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
         holder.completedBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             completedDays.set(day, isChecked);
             cardItem.setCompleted(completedDays);
+            String pr = cardItem.getPr();
+            //Log.println(Log.ASSERT, (String) holder.prEditText.getText(), "AA");
+            if(isChecked && !holder.prEditText.getText().toString().equals("") && (Integer.parseInt(holder.prEditText.getText().toString()) > Integer.parseInt(cardItem.getPr() ))) {
+                pr = holder.prEditText.getText().toString();
+                Toast.makeText(context, " Updated Personal record", Toast.LENGTH_SHORT).show();
+            }
 
-            updateFirestoreArray(userEmail, day, cardItem, completedDays, routineName);
+            updateFirestoreArray(userEmail, day, cardItem, completedDays, routineName, pr);
 
         });
+
     }
 
-    private void updateFirestoreArray(String userEmail, int position, Exercise cardData, ArrayList<Boolean> completedDays, String routineName) {
+    private void updateFirestoreArray(String userEmail, int position, Exercise cardData, ArrayList<Boolean> completedDays, String routineName, String pr) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference usersRef = db.collection("users");
         DocumentReference userDocRef = usersRef.document(userEmail);
@@ -100,6 +109,7 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
                             for(Exercise exercise : exercises) {
                                 if(exercise.getName().equals(cardData.getName())) {
                                     exercise.setCompleted(completedDays);
+                                    exercise.setPr(pr);
                                     document.getReference().update("exercises", exercises)
                                             .addOnSuccessListener(aVoid -> {
                                                 // Successfully updated the Firestore document
@@ -142,11 +152,14 @@ public class ExerciceCompletedCardAdapter extends RecyclerView.Adapter<ExerciceC
         TextView exercicename;
         CheckBox completedBox;
 
+        EditText prEditText;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avatarIcon = itemView.findViewById(R.id.avatarIcon);
             exercicename = itemView.findViewById(R.id.exercicename);
             completedBox = itemView.findViewById(R.id.completedBox);
+            prEditText = itemView.findViewById(R.id.prEditText);
         }
     }
 }
